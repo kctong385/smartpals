@@ -1,0 +1,179 @@
+body {
+  background-color: #dfb785;
+  background-image: radial-gradient(circle, rgb(232, 156, 70) 20%, transparent 10%), 
+                    radial-gradient(circle, rgb(255, 191, 0) 20%, transparent 10%);
+  background-size: 100px 100px;
+  background-position: 0 0, 50px 50px;
+
+
+  font-family: 'Playpen Sans', cursive;
+  color: rgb(0, 251, 255);
+  text-shadow: 1px 1px 2px red;
+}
+
+/* For mobile phones: */
+@media (max-width: 767px) {
+  /* CSS rules */
+}
+/* For tablets: */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* CSS rules */
+}
+/* For desktops: */
+@media (min-width: 992px) {
+  /* CSS rules */
+}
+
+button {
+  margin: 2px;
+}
+
+.view-container {
+  text-align: center;
+  margin: 0 5%;
+  /* border: solid 1px black; */
+}
+
+.view-section {
+  margin: 0 auto 2%;
+  /* border: solid 1px black; */
+}
+
+.center-big-brand {
+  width: 500px;
+  margin: auto;
+  margin-top: 15vh;
+  text-align: center;
+  font-size: 5rem;
+}
+
+.login-form-container {
+  width: 285px;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+.register-form-container {
+  width: 285px;
+  margin: auto;
+  margin-top: 20vh;
+}
+
+.index-item-container {
+  width: 60%;
+  max-width: 550px;
+  margin: auto;
+  margin-top: 10vh;
+  aspect-ratio: 1/1;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+}
+
+.index-item {
+  border: solid rgb(255, 108, 55) 1px;
+  margin: 5% auto;
+  width: 80%;
+  aspect-ratio: 1/1;
+  max-width: 250px;
+  text-align: center;
+  background-color: rgb(255, 218, 205);
+  color: coral;
+  font-size: 1.5rem;
+}
+
+.index-item:hover {
+  color: rgb(255, 91, 31);
+  font-size: 1.6rem;
+  border-width: 2px;
+}
+
+.index-item-svg {
+  margin-top: 20%;
+  height: 50%;
+  fill: coral;
+}
+
+.user-info-section {
+  width: 350px;
+}
+
+.profile_name {
+  font-size: 3rem;
+}
+
+.profile_info {
+  font-size: 1.5rem;
+}
+
+.game-info-container {
+  border: solid 1px black;
+  text-align: center;
+}
+
+.searchInput {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="color: rgb(0, 251, 255);" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); /* Add a search icon to input */
+  background-position: 12px 10px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 30%; /* Full-width */
+  font-size: 1rem; /* Increase font-size */
+  padding: 5px 20px 5px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+/* Inline list */
+.inlineUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+}
+
+.inlineUL li {
+  border: 1px solid coral; /* Add a border to all links */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: pink; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  font-size: 18px; /* Increase the font-size */
+  display: inline; /* Make it into a block element to fill the whole list */
+}
+
+.inlineUL li:hover:not(.header) {
+  background-color: coral; /* Add a hover effect to all links, except for headers */
+}
+
+/* Block list */
+.blockUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+}
+
+.blockUL li {
+  border: 1px solid coral; /* Add a border to all links */
+  margin-top: -1px; /* Prevent double borders */
+  background-color: pink; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  text-align: left;
+  font-size: 18px; /* Increase the font-size */
+  display: block; /* Make it into a block element to fill the whole list */
+}
+
+.blockUL li:hover:not(.header) {
+  background-color: coral; /* Add a hover effect to all links, except for headers */
+}
+
+
+.requestLiUsername {
+  margin: 5px;
+}
+
+.requestLiResponse {
+  float: right;
+}
