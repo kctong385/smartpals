@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import date
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ValidationError
 
 # Create your models here.
 class User(AbstractUser):
@@ -61,15 +62,6 @@ class User(AbstractUser):
       "friend_request": friend_request,
     }
     
-  def serialize_functional(self, user):
-    return {
-      "id": self.id,
-      "username": self.username,
-      "is_self": user == self,
-      "is_friend": user in self.friend.all(),
-      "age": self.calculateAge(),
-    }
-    
 
 class FriendRequest(models.Model):
   from_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sent_request")
@@ -87,3 +79,9 @@ class FriendRequest(models.Model):
     }
     
     
+"""VALIDATOR"""
+def validate_date_of_birth(date):
+  if date < date.today():
+    raise ValidationError(
+      "DOB must not be in future."
+    )

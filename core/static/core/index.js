@@ -510,6 +510,7 @@ function populateFriendList() {
   });
 }
 
+
 // FACTORY FUNCTIONS //
 function createNewEle(tag, clsName, content) {
   const element = document.createElement(tag);

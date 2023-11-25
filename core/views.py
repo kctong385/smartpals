@@ -32,7 +32,10 @@ def login_view(request):
         "message": "Invalid username and/or password."
       })
   else:
-    return render(request, "core/login.html")
+    if request.user.is_authenticated:
+      return HttpResponseRedirect(reverse("index"))
+    else:
+      return render(request, "core/login.html")
 
 
 def logout_view(request):
@@ -61,6 +64,7 @@ def register(request):
       user = User.objects.create_user(username, email, password)
       if date_of_birth is not None:
         user.date_of_birth = date_of_birth
+        # TODO: render error message if date_of_birth is invalid
         
       if first_name is not None:
         user.first_name = first_name
@@ -79,6 +83,7 @@ def register(request):
     return render(request, "core/register.html")
 
 
+@login_required(login_url="/login")
 def profile_info(request, profile_id):
   profile_user = User.objects.get(pk=profile_id)
   user = request.user
@@ -107,6 +112,7 @@ def profile_edit(requst):
     profile_user.date_of_birth = date_of_birth_input
     
   profile_user.save()
+  # TODO: Only display message if something is edited.
   return JsonResponse({"message": "Info edited."}, status=201)
 
 
@@ -118,6 +124,7 @@ def toggle_friend(request):
   data = json.loads(request.body)
   user = request.user
   target_user = User.objects.get(pk=data["friend_id"])
+  # TODO: Error if target_user is not found
   
   if data["action"] == "addfriend":
     if target_user not in user.friend.all():
@@ -137,13 +144,6 @@ def toggle_friend(request):
       return JsonResponse({"message": "Unfriend successful."}, status=201)
     
   return JsonResponse({"error": "Invalid request."}, status=400)
-
-
-def search(request, query):
-  filtered_users = User.objects.filter(username__contains=query)
-  filtered_users = filtered_users.exclude(username="kctong")
-  
-  return JsonResponse([user.serialize_for_search() for user in filtered_users], safe=False)
 
 
 @login_required(login_url="/login")
@@ -171,17 +171,20 @@ def request_response(request):
   try:
     friendrequest = FriendRequest.objects.get(pk=request_id)
     requester = friendrequest.from_user
+    # TODO: Check request receiver is request.user. Return error if not.
   except ObjectDoesNotExist:
     return JsonResponse({"error": "Request does not exist."}, status=400)
   else:
     if action == "accept":
       if requester != user:
         user.friend.add(requester)
-      if user in requester.friend.all():
-        friendrequest.delete()
-        return JsonResponse({"message": "Friend request accepted."}, status=201)
+        if user in requester.friend.all():
+          friendrequest.delete()
+          return JsonResponse({"message": "Friend request accepted."}, status=201)
+        else:
+          return JsonResponse({"error": "Unsuccessful response."}, status=406)
       else:
-        return JsonResponse({"error": "Unsuccessful response."}, status=406)
+        return JsonResponse({"error": "Invalid request."}, status=400)
       
     if action == "decline":
       friendrequest.delete()
@@ -200,9 +203,11 @@ def friend_list(request):
   user = request.user
   friend_list = user.friend.all()
   
-  if len(friend_list) > 0:
-    serialized_data = [friend.serialize_for_search() for friend in friend_list]
-  else:
-    serialized_data = []
+  return JsonResponse([friend.serialize_for_search() for friend in friend_list], safe=False)
+
+
+def search(request, query):
+  filtered_users = User.objects.filter(username__contains=query)
+  filtered_users = filtered_users.exclude(username="kctong")
   
-  return JsonResponse(serialized_data, safe=False)
+  return JsonResponse([user.serialize_for_search() for user in filtered_users], safe=False)

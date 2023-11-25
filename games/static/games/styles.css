@@ -1,0 +1,22 @@
+.game-heading {
+  font-size: 5rem;
+}
+
+.game-quiz {
+  font-size: 4rem;
+  margin: 4vh auto;
+}
+
+.game-score, .game-indication {
+  font-size: 2rem;
+  margin: 2vh auto;
+}
+
+.level-btn-container {
+  margin: 8vh auto;
+}
+
+.game-result {
+  font-size: 8rem;
+  margin: 8vh auto;
+}

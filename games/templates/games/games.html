@@ -1,7 +1,97 @@
 {% extends "core/layout.html" %}
+{% load static %}
 
 {% block body %}
-  <div>
-    <h1>GAMES</h1>
+  <div class="view-container" id="activities-content-view">
+    <h1>ACTIVITIES</h1>
+    <div>
+      <h3>Maths</h3>
+      <ul class="inlineBtn">
+        <li>
+          <button class="gameBtn" id="btn-addition">
+            <span class="gameBtnShadow"></span>
+            <span class="gameBtnEdge"></span>
+            <span class="gameBtnFront">
+              Addition
+            </span>
+          </button>
+        </li>
+        <li>
+          <button class="gameBtn" id="btn-subtraction">
+            <span class="gameBtnShadow"></span>
+            <span class="gameBtnEdge"></span>
+            <span class="gameBtnFront">
+              Subtraction
+            </span>
+          </button>
+        </li>
+        <li>
+          <button class="gameBtn" id="btn-multiplication">
+            <span class="gameBtnShadow"></span>
+            <span class="gameBtnEdge"></span>
+            <span class="gameBtnFront">
+              Multiplicaion
+            </span>
+          </button>
+        </li>
+        <li>
+          <button class="gameBtn" id="btn-division">
+            <span class="gameBtnShadow"></span>
+            <span class="gameBtnEdge"></span>
+            <span class="gameBtnFront">
+              Division
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>English</h3>
+      <ul class="inlineBtn">
+        <li>
+          <button class="gameBtn" id="btn-spelling">
+            <span class="gameBtnShadow"></span>
+            <span class="gameBtnEdge"></span>
+            <span class="gameBtnFront">
+              Spelling
+            </span>
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <h3>Games</h3>
+      <ul class="inlineBtn">
+        <li>
+          <button class="gameBtn" id="btn-memory">
+            <span class="gameBtnShadow"></span>
+            <span class="gameBtnEdge"></span>
+            <span class="gameBtnFront">
+              Memory
+            </span>
+          </button>
+          </li>
+      </ul>
+    </div>
   </div>
-{% endblock %}
+
+  <div class="view-container" id="activities-view">Addition</div>
+
+  <div class="view-container" id="activities-subtraction-view">Subtraction</div>
+
+  <div class="view-container" id="activities-multiplication-view">Multiplicaion</div>
+
+  <div class="view-container" id="activities-division-view">Division</div>
+
+  <div class="view-container" id="activities-spelling-view">Spelling</div>
+
+  <div class="view-container" id="activities-memory-view">Memory</div>
+  
+  <script type="module" src="{% static 'games/games.js' %}"></script>
+  <!--
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="{% static 'games/react-addition.js' %}"></script>
+  -->
+  {% endblock %}
+  

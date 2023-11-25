@@ -11,6 +11,16 @@ body {
   text-shadow: 1px 1px 2px red;
 }
 
+ul {
+  list-style-type: none;
+  padding: 0%;
+}
+
+button {
+  margin: 2px;
+}
+
+
 /* For mobile phones: */
 @media (max-width: 767px) {
   /* CSS rules */
@@ -22,10 +32,6 @@ body {
 /* For desktops: */
 @media (min-width: 992px) {
   /* CSS rules */
-}
-
-button {
-  margin: 2px;
 }
 
 .view-container {
@@ -111,6 +117,16 @@ button {
   text-align: center;
 }
 
+.requestLiUsername {
+  margin: 5px;
+}
+
+.requestLiResponse {
+  float: right;
+}
+
+
+/* Search bar */
 .searchInput {
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="color: rgb(0, 251, 255);" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); /* Add a search icon to input */
   background-position: 12px 10px; /* Position the search icon */
@@ -169,11 +185,106 @@ button {
   background-color: coral; /* Add a hover effect to all links, except for headers */
 }
 
-
-.requestLiUsername {
-  margin: 5px;
+.inlineBtn {
+  list-style-type: none;
+  padding: 10px;
+  margin: auto;
+  width: 80%;
 }
 
-.requestLiResponse {
-  float: right;
+.inlineBtn li {
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  display: inline; /* Make it into a block element to fill the whole list */
+}
+
+/* 3D Button */
+.gameBtn {
+  position: relative;
+  background: transparent;
+  /* background: hsl(340deg 100% 32%); */
+  /* border-radius: 12px; */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  /* outline-offset: 4px; */
+  margin: 6px;
+  width: 180px;
+  will-change: transform;
+  transition: transform 250ms;
+  transition: filter 600ms;
+}
+
+.gameBtnShadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  transform: translateY(2px);
+  filter: blur(4px);
+}
+.gameBtnEdge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(340deg 100% 32%);
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.gameBtnFront {
+  /* display: block; */
+  position: relative;
+  display: block;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  background: hsl(345deg 100% 47%);
+  color: rgb(0, 251, 255);
+  transform: translateY(-4px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+.gameBtn:hover {
+  transition: filter 250ms;
+  filter: brightness(110%);
+}
+
+.gameBtn:hover .gameBtnFront {
+  transform: translateY(-6px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.gameBtn:hover .gameBtnShadow {
+  transform: translateY(4px);
+}
+
+.gameBtn:active .gameBtnFront {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.gameBtn:active .gameBtnShadow {
+  transform: translateY(1px);
+}
+
+.gameBtn:focus:not(:focus-visible) {
+  outline: none;
 }

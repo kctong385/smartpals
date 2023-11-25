@@ -9,7 +9,7 @@
     <h4>Login</h4>
 
     {% if message %}
-      <div>{{ message }}</div>
+      <div class="system-message">{{ message }}</div>
     {% endif %}
 
     <form action="{% url 'login' %}" method="post">
