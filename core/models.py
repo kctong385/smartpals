@@ -23,11 +23,12 @@ class User(AbstractUser):
     return {
       "id": self.id,
       "username": self.username,
+      "name": f"{self.first_name} {self.last_name}",
     }
       
   def serialize_for_profile(self, user):
-    # self = profile owner
-    # user = viewer
+    # NOTE: self = profile owner
+    # NOTE: user = viewer
     friend_request_status = "none"
     friend_request = None
     

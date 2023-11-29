@@ -3,7 +3,7 @@ import { displayView } from './display.js';
 
 function loadMemoryView() {
   // TODO
-  const view = document.querySelector('#activities-memory-view');
+  const view = document.querySelector('#activities-view');
   view.innerHTML = 'Hello world!';
 
   // Set game = addition

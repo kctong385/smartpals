@@ -85,8 +85,11 @@ def register(request):
 
 @login_required(login_url="/login")
 def profile_info(request, profile_id):
-  profile_user = User.objects.get(pk=profile_id)
   user = request.user
+  try:
+    profile_user = User.objects.get(pk=profile_id)
+  except ObjectDoesNotExist:
+    profile_user = user
   
   return JsonResponse(profile_user.serialize_for_profile(user), safe=True)
 
@@ -211,3 +214,5 @@ def search(request, query):
   filtered_users = filtered_users.exclude(username="kctong")
   
   return JsonResponse([user.serialize_for_search() for user in filtered_users], safe=False)
+
+

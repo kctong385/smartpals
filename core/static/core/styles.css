@@ -11,6 +11,17 @@ body {
   text-shadow: 1px 1px 2px red;
 }
 
+table {
+  margin: 0vh auto 5vh;
+  width: 80%;
+  border: 2px solid rgba(0, 0, 237, 0.5);
+  background-color: rgba(0, 0, 237, 0.5);
+}
+
+thead {
+  border-bottom: 1px solid;
+}
+
 ul {
   list-style-type: none;
   padding: 0%;
@@ -41,7 +52,7 @@ button {
 }
 
 .view-section {
-  margin: 0 auto 2%;
+  margin: 0 auto 5vh;
   /* border: solid 1px black; */
 }
 
