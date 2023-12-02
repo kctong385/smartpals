@@ -33,6 +33,33 @@ function createInput(clsName, type, value, placeholder) {
 }
 
 
+function createSmBtn(btnName, handlerFunc) {
+  const smBtn = document.createElement('button');
+  smBtn.className = "smBtn";
+
+  const shadowSpan = document.createElement('span');
+  shadowSpan.className = "smBtnShadow";
+  smBtn.append(shadowSpan);
+
+  const edgeSpan = document.createElement('span');
+  edgeSpan.className = "smBtnEdge";
+  smBtn.append(edgeSpan);
+
+  const frontSpan = document.createElement('span');
+  frontSpan.className = "smBtnFront";
+  frontSpan.innerHTML = btnName;
+  smBtn.append(frontSpan);
+
+  let smBtnHandler;
+  smBtn.addEventListener('click', smBtnHandler = () => {
+    setTimeout(handlerFunc, 100);
+    smBtn.removeEventListener('click', smBtnHandler);
+  });
+
+  return smBtn;
+}
+
+
 function addWrappingDiv(inputEle, clsName) {
   const element = document.createElement('div');
   element.className = clsName;
@@ -89,5 +116,38 @@ function generateTable(tableData) {
   return table;
 }
 
+function fadeOut(targetView, callBack) {
+  targetView.classList.add('hide');
+  
+  let handler;
+  targetView.addEventListener('animationend', handler = () => {
+    // Hide view
+    targetView.style.display = 'none';
+    // Remove 'hide' class
+    targetView.classList.remove('hide');
+    // Callback function
+    setTimeout(callBack, 0)
+    // Remove handler
+    targetView.removeEventListener('animationend', handler);
+  })
+}
 
-export { getCookie, createNewEle, createInput, addWrappingDiv, generateTable }
+function fadeIn(targetView, callBack) {
+  // Display view
+  targetView.style.display = 'block';
+  // Add animation class
+  targetView.classList.add('appear');
+
+  let handler;
+  targetView.addEventListener('animationend', handler = () => {
+    // Remove 'appear' class
+    targetView.classList.remove('appear');
+    // Callback function
+    setTimeout(callBack, 0)
+    // Remove handler
+    targetView.removeEventListener('animationend', handler);
+  })
+}
+
+
+export { getCookie, createNewEle, createInput, createSmBtn, addWrappingDiv, generateTable, fadeOut, fadeIn }

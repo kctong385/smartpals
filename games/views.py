@@ -18,6 +18,11 @@ def games_view(request):
   return render(request, "games/games.html")
 
 
+def games_data(request):
+  games = Game.objects.all()
+
+  return JsonResponse([game.serialize() for game in games], safe=False)
+
 def get_instruction(request, game_title):
   game = Game.objects.get(title=game_title)
     
@@ -112,12 +117,12 @@ def friends_ranking(request):
         if game_records.count() > 0:
           sub_qs = game_records.filter(player=user).order_by("-score", "attempts", "game_time", "end_timestamp")[:1]
           
-          for player in friends:
-              sub_qs_1 = game_records.filter(player=player).order_by("-score", "attempts", "game_time", "end_timestamp")[:1]
-              
+          if friends.count() > 0:
+            for player in friends:
+              sub_qs_1 = game_records.filter(player=player).order_by("-score", "attempts", "game_time", "end_timestamp")[:1]    
               sub_qs = sub_qs | sub_qs_1
               
-          sub_qs = sub_qs.order_by("-score", "attempts", "game_time", "end_timestamp")[:3]
+            sub_qs = sub_qs.order_by("-score", "attempts", "game_time", "end_timestamp")[:3]
               
           games_ranking.append(
             [game_record.serialize() for game_record in sub_qs]

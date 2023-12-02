@@ -5,8 +5,6 @@ function gameData() {
 }
 
 function gameLog(game_id, level, score, attempt, game_time) {
-  // TODO: Log game, level, player, start time, score, attemp
-  console.log('Log Game!');
   fetch('activity_log', {
     method: 'POST',
     headers: {
@@ -23,7 +21,6 @@ function gameLog(game_id, level, score, attempt, game_time) {
   })
   .then(response => response.json())
   .then(result => {
-    console.log('Game logged!');
     console.log(result);
   });
 }

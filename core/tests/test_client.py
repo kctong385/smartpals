@@ -96,11 +96,11 @@ class coreClientTestCase(StaticLiveServerTestCase):
     
     # Assert username
     try:
-      username_display = self.selenium.find_element(By.TAG_NAME, "strong")
+      welcome_message = self.selenium.find_element(By.TAG_NAME, "strong")
     except NoSuchElementException:
       print("Username missing.")
       
-    self.assertEqual(username_display.get_attribute("innerText"), register_arg["username"])
+    self.assertEqual(welcome_message.get_attribute("innerText"), f"Hi {register_arg['first_name']}!")
     
     """TEST REPEATED REGISTRATION"""
     self.register(**register_arg)

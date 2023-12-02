@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-  <div class="view-container" id="activities-content-view">
+  <div class="view-container" id="activities-content-view" style="display: none">
     <h1>ACTIVITIES</h1>
     <div>
       <h3>Maths</h3>
@@ -75,10 +75,15 @@
     </div>
   </div>
 
-  <div class="view-container" id="activities-view">Activities View</div>
+  <div class="view-container" id="activities-view" style="display: none">
+    <h2 class="game-heading"></h2>
+    <div></div>
+  </div>
   
-  <script type="module" src="{% static 'games/games.js' %}"></script>
+  <div class="view-container" id="activities-result-view" style="display: none">
+    <div></div>
+  </div>
 
-  
-  {% endblock %}
+  <script type="module" src="{% static 'games/games.js' %}"></script>
+{% endblock %}
   

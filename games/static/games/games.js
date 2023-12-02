@@ -1,4 +1,4 @@
-import { displayView } from './display.js';
+import { displayView, fadeIn } from './display.js';
 import { loadLevelView } from './level.js';
 
 
@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   // TODO: Add game_content.js to populate game buttons according to catagory
-  displayView('#activities-content-view');
+  // displayView('#activities-content-view');
+  const view = document.querySelector('#activities-content-view');
+  fadeIn(view, '');
 });
 

@@ -5,7 +5,7 @@
 {% block body %}
   {% if user.is_authenticated %}
     <!-- INDEX VIEW -->
-    <div class="index-view-container" id="index-view-container">
+    <div class="view-container" id="index-view-container" style="display: none">
       <div class="index-item-container">
         <!-- Redirect to games app -->
         <a class="index-item btn" id="gameBtn" href="{% url 'games' %}">
@@ -44,14 +44,8 @@
     </div>
 
     <!-- PROFILE VIEW -->
-    <div class="view-container" id="profile-view-container">
+    <div class="view-container" id="profile-view-container" style="display: none">
       <div class="user-info-section view-section" id="user-info-section">
-        <ul>
-          <li>Kid's name</li>
-          <li>Kid's age (only visible to friends)</li>
-          <li>Email address (only visible to self)</li>
-          <li>Edit info button</li>
-        </ul>
       </div>
 
       <div class="game-info-section view-section">
@@ -61,24 +55,16 @@
     </div>
 
     <!-- FRIENDS VIEW -->
-    <div class="view-container" id="friends-view-container">
+    <div class="view-container" id="friends-view-container" style="display: none">
       <h1>MY FRIENDS</h1>
-      <input class="searchInput" type="text" id="searchInput" onkeyup="searchUser()" placeholder="Search usermane">
-      <div class="view-section" id="search-result-view">
-      </div>
+      <input class="searchInput" type="text" id="searchInput" placeholder="Search usermane">
+      <div class="view-section" id="search-result-view"></div>
+
       <div class="friend-view" id="friend-view">
-        <div class="view-section" id="friend-request-section">
-          <h3>Friend request received</h3>
-        </div>
-        <div class="view-section" id="friend-list-section">
-          Friends list (link to friends profile page)(button to unfriend)
-        </div>
-        <div class="view-section" id="friends-activities-section">
-          Friends' recent activities list
-        </div>
-        <div class="view-section" id="friends-ranking-section">
-          Friends' game ranking
-        </div>
+        <div class="view-section" id="friend-request-section"></div>
+        <div class="view-section" id="friend-list-section"></div>
+        <div class="view-section" id="friends-activities-section"></div>
+        <div class="view-section" id="friends-ranking-section"></div>
       </div>
     </div>
   {% endif %}

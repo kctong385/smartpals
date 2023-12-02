@@ -10,8 +10,6 @@ function populateActivities(profile_id) {
   fetch(`games/recent_activities/${profile_id}`)
   .then(response => response.json())
   .then(records => {
-    console.log(records);
-
     if (records.length <= 0) {
       section.append(createNewEle('p', '', 'No result'));
     } else {
@@ -44,8 +42,6 @@ function populateFriendActivities() {
   fetch(`games/friends_activities`)
   .then(response => response.json())
   .then(records => {
-    console.log(records);
-
     if (records.length <= 0) {
       section.append(createNewEle('p', '', 'No result'));
     } else {
@@ -79,8 +75,6 @@ function populateGameRanking(profile_id) {
   fetch(`games/games_ranking/${profile_id}`)
   .then(response => response.json())
   .then(games_ranking => {
-    console.log(games_ranking);
-
     if (games_ranking.length <= 0) {
       section.append(createNewEle('p', '', 'No result'));
     } else {
@@ -119,8 +113,6 @@ function populateFriendGameRanking() {
   fetch(`games/friends_ranking`)
   .then(response => response.json())
   .then(records => {
-    console.log(records);
-
     if (records.length <= 0) {
       section.append(createNewEle('p', '', 'No result'));
     } else {

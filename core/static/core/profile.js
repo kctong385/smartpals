@@ -1,17 +1,15 @@
-import { getCookie, createNewEle, createInput, addWrappingDiv } from './util.js';
+import { getCookie, createNewEle, createInput, createSmBtn, addWrappingDiv, fadeIn, fadeOut } from './util.js';
 import { createResponseBtn, createUnfriendBtn } from './friend.js';
 
 // Preceeded by loadProfileView
 function generateProfile(profile_id) {
   const target = document.querySelector('#user-info-section');
+
   target.innerHTML = '';
 
   fetch(`/profile/${profile_id}`)
   .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    
-    // Kid's name
+  .then(data => {// Kid's name
     target.append(createNewEle(
       'div', // tag
       'profile_name',  // class
@@ -34,11 +32,7 @@ function generateProfile(profile_id) {
 
     // Create Edit info button
     if (data.is_self) {
-      const editBtn = createNewEle(
-        'button', // tag
-        'btn btn-primary btn-sm', // class
-        'Edit'); // innerHTML
-      editBtn.addEventListener('click', () => {
+      const editBtn = createSmBtn('Edit', () => {
         generateEditForm(data, target);
       });
       target.append(editBtn);
@@ -59,6 +53,7 @@ function generateProfile(profile_id) {
       target.append(friendBtnSelection(data));
     }
   });
+
 }
 
 
@@ -66,7 +61,8 @@ function generateEditForm(data, target) {
   // Empty target
   target.innerHTML = '';
 
-  const editForm = document.createElement('form');
+  const editForm = document.createElement('div');
+  editForm.className = 'profile-edit-form';
 
   // Create First Name Input
   const firstNameInput = createInput(
@@ -102,14 +98,7 @@ function generateEditForm(data, target) {
   );
 
   // Create save button
-  const saveBtn = document.createElement('input');
-  saveBtn.className = 'btn btn-primary btn-sm';
-  saveBtn.type = 'button';
-  saveBtn.value = 'Save';
-
-  // Add event handler
-  saveBtn.addEventListener('click', () => {
-    console.log('Clicked save!');
+  const saveBtn = createSmBtn('Save', () => {
     // Fetch data
     fetch(`/profile/edit`, {
       method: 'PUT',
@@ -132,11 +121,11 @@ function generateEditForm(data, target) {
     })
 
     // Refresh profile view
-    setTimeout(loadProfileView, 100, data.id);
+    setTimeout(generateProfile, 100, data.id);
 
     // Prevent default submission
     return false;
-  })
+  });
 
   editForm.append(saveBtn);
 
@@ -147,25 +136,23 @@ function generateEditForm(data, target) {
 // Create Friend/Unfriend button
 // Preceeded by generateProfile
 function friendBtnSelection(data) {
-  const clsName = 'btn btn-primary btn-sm';
-
   if (data.is_friend) {
     // Create unfriend button
     return createUnfriendBtn(
       data.id, 
-      clsName,
       () => { generateProfile(data.id) },
       );
 
   } else {
     // No Existing Request: Add friend option
     if (data.friend_request_status === 'none') {
-      return createAddFriendBtn(data.id, clsName);
+      return createAddFriendBtn(data.id);
     }
 
     // Request Sent: Button disable and display 'Pending'
     if (data.friend_request_status === 'sent') {
-      const btn = createNewEle('button', clsName, 'Pending');
+      // const btn = createNewEle('button', clsName, 'Pending');
+      const btn = createSmBtn('Pending', () => {})
       btn.disabled = true;
       return btn;
     }
@@ -182,11 +169,8 @@ function friendBtnSelection(data) {
 }
 
 
-function createAddFriendBtn(profile_id, clsName) {
-  const btn = createNewEle('button', clsName, '');
-  btn.innerHTML = 'Add Friend';
-  // Add event handler
-  btn.addEventListener('click', () => {
+function createAddFriendBtn(profile_id) {
+  const btn = createSmBtn('Add Friend', () => {
     fetch(`/toggle_friend`, {
       method: 'PUT',
       headers: {
@@ -204,6 +188,7 @@ function createAddFriendBtn(profile_id, clsName) {
     });
     setTimeout(generateProfile, 100, profile_id);
   });
+
   return btn;
 }
 

@@ -99,6 +99,7 @@ class coreModelsTestCase(TestCase):
     output = {
       "id": self.harry["id"],
       "username": self.harry["username"],
+      "name": f"{self.harry['first_name']} {self.harry['last_name']}",
     }
     
     self.assertEqual(user.serialize_for_search(), output)

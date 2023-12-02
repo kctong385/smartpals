@@ -1,42 +1,18 @@
-/* Game Buttons Arrangement*/
-.inlineBtn {
-  list-style-type: none;
-  padding: 10px;
-  margin: auto;
-  width: 80%;
-}
-
-.inlineBtn li {
-  padding: 12px; 
-  text-decoration: none; 
-  display: inline; 
-}
-
-
-/* Level Buttons Arrangement*/
-.level-btn-container {
-  margin: 8vh auto;
-}
-
-
-/* 3D Button */
-.gameBtn {
+/* Small 3D Button */
+.smBtn {
   position: relative;
   background: transparent;
-  /* background: hsl(340deg 100% 32%); */
-  /* border-radius: 12px; */
   border: none;
   padding: 0;
   cursor: pointer;
-  /* outline-offset: 4px; */
   margin: 6px;
-  width: 180px;
+  width: auto;
   will-change: transform;
   transition: transform 250ms;
   transition: filter 600ms;
 }
 
-.gameBtnShadow {
+.smBtnShadow {
   position: absolute;
   top: 0;
   left: 0;
@@ -48,7 +24,7 @@
   filter: blur(4px);
 }
 
-.gameBtnEdge {
+.smBtnEdge {
   position: absolute;
   top: 0;
   left: 0;
@@ -65,13 +41,13 @@
   );
 }
 
-.gameBtnFront {
+.smBtnFront {
   /* display: block; */
   position: relative;
   display: block;
-  padding: 16px 24px;
+  padding: 5px 25px;
   border-radius: 12px;
-  font-size: 1.25rem;
+  font-size: 1rem;
   background: hsl(345deg 100% 47%);
   color: rgb(0, 251, 255);
   transform: translateY(-4px);
@@ -81,12 +57,12 @@
     cubic-bezier(.3, .7, .4, 1);
 }
 
-.gameBtn:hover {
+.smBtn:hover:not(:disabled) {
   transition: filter 250ms;
   filter: brightness(110%);
 }
 
-.gameBtn:hover .gameBtnFront {
+.smBtn:hover:not(:disabled) .smBtnFront {
   transform: translateY(-6px);
   transition:
     transform
@@ -94,58 +70,24 @@
     cubic-bezier(.3, .7, .4, 1.5);
 }
 
-.gameBtn:hover .gameBtnShadow {
+.smBtn:hover:not(:disabled) .smBtnShadow {
   transform: translateY(4px);
 }
 
-.gameBtn:active .gameBtnFront {
+.smBtn:active:not(:disabled) .smBtnFront {
   transform: translateY(-2px);
   transition: transform 34ms;
 }
 
-.gameBtn:active .gameBtnShadow {
+.smBtn:active:not(:disabled) .smBtnShadow {
   transform: translateY(1px);
 }
 
-.gameBtn:focus:not(:focus-visible) {
+.smBtn:focus:not(:focus-visible) {
   outline: none;
 }
 
-
-/* Maths Game Style */
-.game-heading {
-  font-size: 5rem;
+.smBtn:disabled {
+  color: rgba(0, 251, 255, 0.8);
+  filter: grayscale(50%);
 }
-
-.game-quiz {
-  font-size: 4rem;
-  margin: 4vh auto;
-}
-
-.game-instruction {
-  font-size: 1.5rem;
-}
-
-.game-indication {
-  font-size: 2rem;
-  margin: 2vh auto;
-}
-
-.game-score {
-  font-size: 2rem;
-  margin: 2vh auto;
-  width: min-content;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.score-sub {
-  margin: 5px;
-}
-
-.game-result {
-  font-size: 8rem;
-  margin: 8vh auto;
-}
-
-

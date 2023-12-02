@@ -9,7 +9,6 @@ urlpatterns = [
   path("register", views.register, name="register"),
   
   # API route
-  # path("profile/", views.profile_info, name="profile_info"),
   path("profile/<int:profile_id>", views.profile_info, name="profile_info"),
   path("profile/edit", views.profile_edit, name="profile_edit"),
   path("search/<str:query>", views.search, name="search"),

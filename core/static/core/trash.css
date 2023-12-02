@@ -1,0 +1,32 @@
+/* Inline list */
+.inlineUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+}
+
+.inlineUL li {
+  border: 1px solid coral; /* Add a border to all links */
+  margin: 2px; /* Prevent double borders */
+  background-color: pink; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  font-size: 18px; /* Increase the font-size */
+  display: inline; /* Make it into a block element to fill the whole list */
+  white-space: nowrap;
+}
+
+.inlineUL li:hover:not(.header) {
+  background-color: coral; /* Add a hover effect to all links, except for headers */
+}
+
+
+
+.game-info-container {
+  border: solid 1px black;
+  text-align: center;
+}
+
+

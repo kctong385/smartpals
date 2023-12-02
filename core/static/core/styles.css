@@ -1,25 +1,41 @@
+/* General style */
+:root {
+  --navHeight: 100px;
+}
+
 body {
   background-color: #dfb785;
   background-image: radial-gradient(circle, rgb(232, 156, 70) 20%, transparent 10%), 
                     radial-gradient(circle, rgb(255, 191, 0) 20%, transparent 10%);
   background-size: 100px 100px;
   background-position: 0 0, 50px 50px;
-
+  background-attachment: fixed;
 
   font-family: 'Playpen Sans', cursive;
   color: rgb(0, 251, 255);
-  text-shadow: 1px 1px 2px red;
+  text-shadow: 3px 3px 3px red;
+
 }
 
 table {
-  margin: 0vh auto 5vh;
+  margin: 0 auto 30px;
   width: 80%;
+  padding: 10px;
   border: 2px solid rgba(0, 0, 237, 0.5);
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: 20px;
   background-color: rgba(0, 0, 237, 0.5);
+  box-shadow: 5px 5px 6px 0px rgba(0, 0, 255, .2);
 }
 
-thead {
+th {
   border-bottom: 1px solid;
+}
+
+tbody tr:hover {
+  filter: brightness(150%);
+  background-color: rgba(0, 0, 237, 0.3);
 }
 
 ul {
@@ -29,6 +45,200 @@ ul {
 
 button {
   margin: 2px;
+}
+
+/* Forms */
+.login-form-container {
+  width: 285px;
+  margin: auto;
+  margin-top: 5vh;
+}
+
+.register-form-container {
+  width: 285px;
+  margin: auto;
+  margin-top: 20vh;
+}
+
+.profile-edit-form {
+  width: 350px;
+  margin: auto;
+}
+
+/* Top nav */
+.navbar-brand {
+  text-decoration: none;
+  font-size: 250%;
+  color: inherit;
+}
+
+.nav-link {
+  font-size: 120%;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* General structure */
+.view-container {
+  text-align: center;
+  margin: 100px auto 0;
+  position: fixed;
+  width: 100vw;
+  height: calc(100vh - 100px);
+  overflow: auto;
+  /* border: solid 1px black; */
+}
+
+.view-section {
+  margin: 0 auto 30px;
+  /* border: solid 1px black; */
+}
+
+/* Index view buttons */
+.index-item-container {
+  width: 60%;
+  max-width: 550px;
+  margin: auto;
+  margin-top: 10vh;
+  aspect-ratio: 1/1;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 10px;
+}
+
+.index-item {
+  border: solid rgb(255, 108, 55) 1px;
+  border-radius: 50px;
+  box-shadow: 5px 5px 6px 0px rgba(0, 0, 255, .2);
+  margin: 5% auto;
+  width: 80%;
+  aspect-ratio: 1/1;
+  max-width: 250px;
+  text-align: center;
+  background-color: rgb(255, 218, 205);
+  color: coral;
+  font-size: 1.5rem;
+  transition: all 0.5s ease-out;
+}
+
+.index-item:hover {
+  border: solid red 3px;
+  background-color: rgb(255, 248, 205);
+  box-shadow: 10px 10px 10px 5px rgba(0, 0, 255, .2);
+  color: red;
+  font-size: 1.6rem;
+}
+
+.index-item-svg {
+  margin-top: 20%;
+  height: 50%;
+  fill: coral;
+  transition: all 0.5s ease-out;
+}
+
+.index-item:hover .index-item-svg {
+  margin-top: 17%;
+  height: 53%;
+  fill: red;
+}
+
+/* Profile view misc */
+.user-info-section {
+  width: 500px;
+  min-height: 205px;
+}
+
+.profile_name {
+  font-size: 3rem;
+}
+
+.profile_info {
+  font-size: 1.5rem;
+  margin: 5px auto;
+}
+
+
+/* Search bar (Friend View) */
+.searchInput {
+  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="color: rgb(0, 251, 255);" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); /* Add a search icon to input */
+  background-position: 12px 10px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 30%; /* Full-width */
+  font-size: 1rem; /* Increase font-size */
+  padding: 5px 20px 5px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  border-radius: 50vmin;
+  margin-bottom: 12px; /* Add some space below the input */
+}
+
+.searchResult {
+  padding: 10px;
+  margin: auto;
+  width: 50%;
+}
+
+.searchResult div {
+  border: 2px solid coral; /* Add a border to all links */
+  border-radius: 45%;
+  box-shadow: 5px 5px 6px 0px rgba(0, 0, 255, .2);
+  margin: 2px; /* Prevent double borders */
+  background-color: pink; /* Grey background color */
+  padding: 12px; /* Add some padding */
+  font-size: 18px; /* Increase the font-size */
+  display: inline; /* Make it into a block element to fill the whole list */
+  white-space: nowrap;
+}
+
+
+/* Block list (for Friend view lists) */
+.blockUL {
+  /* Remove default list styling */
+  list-style-type: none;
+  padding: 10px;
+  margin: auto;
+  width: 60%;
+}
+
+.blockUL li {
+  border: 2px solid coral; /* Add a border to all links */
+  border-radius: 50vmin;
+  box-shadow: 5px 5px 6px 0px rgba(0, 0, 255, .2);
+  margin: 2px; /* Prevent double borders */
+  background-color: pink; /* Grey background color */
+  padding: 6px 30px 2px; /* Add some padding */
+  text-decoration: none; /* Remove default text underline */
+  text-align: left;
+  font-size: 1.3rem; /* Increase the font-size */
+  display: flex; /* Make it into a block element to fill the whole list */
+  justify-content: space-between;
+  align-content: center;
+  transition: all 0.5s ease-out;
+}
+
+.blockUL li:hover:not(.header) {
+  background-color: coral; /* Add a hover effect to all links, except for headers */
+}
+
+/* Friend view misc */
+.requestLiUsername {
+  /* margin: 5px; */
+  padding: 7px 0;
+  vertical-align: middle;
+}
+
+.requestLiResponse {
+  float: right;
+  vertical-align: middle;
+  text-align: right;
+}
+
+/* Login & Register Misc */
+.center-big-brand {
+  width: 500px;
+  margin: auto;
+  margin-top: 15vh;
+  text-align: center;
+  font-size: 5rem;
 }
 
 
@@ -43,259 +253,4 @@ button {
 /* For desktops: */
 @media (min-width: 992px) {
   /* CSS rules */
-}
-
-.view-container {
-  text-align: center;
-  margin: 0 5%;
-  /* border: solid 1px black; */
-}
-
-.view-section {
-  margin: 0 auto 5vh;
-  /* border: solid 1px black; */
-}
-
-.center-big-brand {
-  width: 500px;
-  margin: auto;
-  margin-top: 15vh;
-  text-align: center;
-  font-size: 5rem;
-}
-
-.login-form-container {
-  width: 285px;
-  margin: auto;
-  margin-top: 5vh;
-}
-
-.register-form-container {
-  width: 285px;
-  margin: auto;
-  margin-top: 20vh;
-}
-
-.index-item-container {
-  width: 60%;
-  max-width: 550px;
-  margin: auto;
-  margin-top: 10vh;
-  aspect-ratio: 1/1;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  padding: 10px;
-}
-
-.index-item {
-  border: solid rgb(255, 108, 55) 1px;
-  margin: 5% auto;
-  width: 80%;
-  aspect-ratio: 1/1;
-  max-width: 250px;
-  text-align: center;
-  background-color: rgb(255, 218, 205);
-  color: coral;
-  font-size: 1.5rem;
-}
-
-.index-item:hover {
-  color: rgb(255, 91, 31);
-  font-size: 1.6rem;
-  border-width: 2px;
-}
-
-.index-item-svg {
-  margin-top: 20%;
-  height: 50%;
-  fill: coral;
-}
-
-.user-info-section {
-  width: 350px;
-}
-
-.profile_name {
-  font-size: 3rem;
-}
-
-.profile_info {
-  font-size: 1.5rem;
-}
-
-.game-info-container {
-  border: solid 1px black;
-  text-align: center;
-}
-
-.requestLiUsername {
-  margin: 5px;
-}
-
-.requestLiResponse {
-  float: right;
-}
-
-
-/* Search bar */
-.searchInput {
-  background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="color: rgb(0, 251, 255);" class="bi bi-search" viewBox="0 0 16 16"><path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/></svg>'); /* Add a search icon to input */
-  background-position: 12px 10px; /* Position the search icon */
-  background-repeat: no-repeat; /* Do not repeat the icon image */
-  width: 30%; /* Full-width */
-  font-size: 1rem; /* Increase font-size */
-  padding: 5px 20px 5px 40px; /* Add some padding */
-  border: 1px solid #ddd; /* Add a grey border */
-  margin-bottom: 12px; /* Add some space below the input */
-}
-
-/* Inline list */
-.inlineUL {
-  /* Remove default list styling */
-  list-style-type: none;
-  padding: 10px;
-  margin: auto;
-  width: 50%;
-}
-
-.inlineUL li {
-  border: 1px solid coral; /* Add a border to all links */
-  margin-top: -1px; /* Prevent double borders */
-  background-color: pink; /* Grey background color */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  font-size: 18px; /* Increase the font-size */
-  display: inline; /* Make it into a block element to fill the whole list */
-}
-
-.inlineUL li:hover:not(.header) {
-  background-color: coral; /* Add a hover effect to all links, except for headers */
-}
-
-/* Block list */
-.blockUL {
-  /* Remove default list styling */
-  list-style-type: none;
-  padding: 10px;
-  margin: auto;
-  width: 50%;
-}
-
-.blockUL li {
-  border: 1px solid coral; /* Add a border to all links */
-  margin-top: -1px; /* Prevent double borders */
-  background-color: pink; /* Grey background color */
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  text-align: left;
-  font-size: 18px; /* Increase the font-size */
-  display: block; /* Make it into a block element to fill the whole list */
-}
-
-.blockUL li:hover:not(.header) {
-  background-color: coral; /* Add a hover effect to all links, except for headers */
-}
-
-.inlineBtn {
-  list-style-type: none;
-  padding: 10px;
-  margin: auto;
-  width: 80%;
-}
-
-.inlineBtn li {
-  padding: 12px; /* Add some padding */
-  text-decoration: none; /* Remove default text underline */
-  display: inline; /* Make it into a block element to fill the whole list */
-}
-
-/* 3D Button */
-.gameBtn {
-  position: relative;
-  background: transparent;
-  /* background: hsl(340deg 100% 32%); */
-  /* border-radius: 12px; */
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  /* outline-offset: 4px; */
-  margin: 6px;
-  width: 180px;
-  will-change: transform;
-  transition: transform 250ms;
-  transition: filter 600ms;
-}
-
-.gameBtnShadow {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  background: hsl(0deg 0% 0% / 0.25);
-  transform: translateY(2px);
-  filter: blur(4px);
-}
-.gameBtnEdge {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 12px;
-  background: hsl(340deg 100% 32%);
-  background: linear-gradient(
-    to left,
-    hsl(340deg 100% 16%) 0%,
-    hsl(340deg 100% 32%) 8%,
-    hsl(340deg 100% 32%) 92%,
-    hsl(340deg 100% 16%) 100%
-  );
-}
-
-.gameBtnFront {
-  /* display: block; */
-  position: relative;
-  display: block;
-  padding: 16px 24px;
-  border-radius: 12px;
-  font-size: 1.25rem;
-  background: hsl(345deg 100% 47%);
-  color: rgb(0, 251, 255);
-  transform: translateY(-4px);
-  transition:
-    transform
-    600ms
-    cubic-bezier(.3, .7, .4, 1);
-}
-
-.gameBtn:hover {
-  transition: filter 250ms;
-  filter: brightness(110%);
-}
-
-.gameBtn:hover .gameBtnFront {
-  transform: translateY(-6px);
-  transition:
-    transform
-    250ms
-    cubic-bezier(.3, .7, .4, 1.5);
-}
-
-.gameBtn:hover .gameBtnShadow {
-  transform: translateY(4px);
-}
-
-.gameBtn:active .gameBtnFront {
-  transform: translateY(-2px);
-  transition: transform 34ms;
-}
-
-.gameBtn:active .gameBtnShadow {
-  transform: translateY(1px);
-}
-
-.gameBtn:focus:not(:focus-visible) {
-  outline: none;
 }

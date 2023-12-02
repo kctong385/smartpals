@@ -11,16 +11,16 @@ function loadLevelView(game) {
   fetch(`instruction/${game}`)
   .then(response => response.json())
   .then(game_data => {
-    console.log(game_data);
-    
-    const view = document.querySelector('#activities-view');
+    const view = document.querySelector('#activities-view > div');
     view.innerHTML = '';
     var level;
   
     // Add heading
-    view.append(
-      createElement('h2', 'game-heading', capitalize_str(game_data['title']))
-    );
+    document.querySelector('#activities-view h2').innerHTML = game_data['title'];
+
+    // view.append(
+    //   createElement('h2', 'game-heading', capitalize_str(game_data['title']))
+    // );
   
     // Load select level button
     const divLevel = document.createElement('div');

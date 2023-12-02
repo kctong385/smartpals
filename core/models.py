@@ -73,9 +73,9 @@ class FriendRequest(models.Model):
     return {
       "id": self.id,
       "from_user_id": self.from_user.id,
-      "from_user_name": self.from_user.username,
+      "from_user_name": f"{self.from_user.first_name} {self.from_user.last_name}",
       "to_user_id": self.to_user.id,
-      "to_user_name": self.to_user.username,
+      "to_user_name": f"{self.to_user.first_name} {self.to_user.last_name}",
       "message": self.message,
     }
     

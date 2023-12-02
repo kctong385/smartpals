@@ -609,6 +609,7 @@ class test_views(TestCase):
     output = [{
       "id": self.u3.id,
       "username": self.u3.username,
+      "name": f"{self.u3.first_name} {self.u3.last_name}",
     }]
     
     # Assert response

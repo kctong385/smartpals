@@ -1,16 +1,15 @@
-import { getCookie, createNewEle, addWrappingDiv } from './util.js';
-import { loadProfileView, loadFriendsView } from './index.js'
+import { getCookie, createNewEle, createSmBtn, addWrappingDiv } from './util.js';
+import { loadProfileView, loadFriendsView, refreshFriendsView } from './index.js'
 
 
 // Preceeded by searchUser
 function populateSearchResult(users) {
-  console.log(users);
-  const userUl = document.createElement('ul');
-  userUl.className = 'inlineUL';
+  const userUl = document.createElement('div');
+  userUl.className = 'searchResult';
 
   users.forEach((user) => {
-    const userLi = document.createElement('li');
-    userLi.innerHTML = user.name;
+    const userLi = document.createElement('div');
+    userLi.innerHTML = user.username;
     userLi.addEventListener('click', () => {
       loadProfileView(user.id);
     });
@@ -24,8 +23,6 @@ function populateSearchResult(users) {
 // Preceeded by loadFriendsView
 // Reload Request List
 function populateRequestList(request_direction) {
-  console.log('populate requests');
-
   const friendRequestSection = document.querySelector('#friend-request-section');
   friendRequestSection.innerHTML = '';
   friendRequestSection.append(createNewEle('h3', '', 'Friend request received'))
@@ -33,8 +30,6 @@ function populateRequestList(request_direction) {
   fetch(`/received_request`)
   .then(response => response.json())
   .then(data => {
-    console.log(data);
-
     const friendRequests = data.friend_requests;
     const userUl = document.createElement('ul');
     userUl.className = 'blockUL';
@@ -67,7 +62,7 @@ function populateRequestList(request_direction) {
         const responseDiv = createResponseBtn(
           friendRequest, 
           'requestLiResponse', 
-          loadFriendsView,
+          refreshFriendsView,
         );
 
         userLi.append(usernameDiv);
@@ -90,8 +85,6 @@ function populateFriendList() {
   fetch(`/friend_list`)
   .then(response => response.json())
   .then(data => {
-    console.log(data);
-
     const userUl = document.createElement('ul');
     userUl.className = 'blockUL';
 
@@ -110,11 +103,9 @@ function populateFriendList() {
           loadProfileView(friend_id);
         });
 
-        const interactiveBtn = createUnfriendBtn(
-          friend_id, 
-          'btn btn-primary btn-sm', 
-          () => { populateFriendList(); },
-          );
+        const interactiveBtn = createUnfriendBtn(friend_id, () => {
+          refreshFriendsView();
+        });
 
         const interactiveDiv = addWrappingDiv(interactiveBtn, 'requestLiResponse');
 
@@ -130,11 +121,8 @@ function populateFriendList() {
 
 // Create button to unfriend a user
 // Preceeded by populateFriendList, friendBtnSelection
-function createUnfriendBtn(profile_id, clsName, refreshFunction) {
-  const btn = createNewEle('button', clsName, '');
-  btn.innerHTML = 'Unfriend';
-  // Add event handler
-  btn.addEventListener('click', () => {
+function createUnfriendBtn(profile_id, refreshFunction) {
+  const btn = createSmBtn('Unfriend', () => {
     fetch(`/toggle_friend`, {
       method: 'PUT',
       headers: {
@@ -152,6 +140,7 @@ function createUnfriendBtn(profile_id, clsName, refreshFunction) {
     });
     setTimeout(refreshFunction, 100);
   });
+
   return btn;
 }
 
@@ -160,12 +149,9 @@ function createUnfriendBtn(profile_id, clsName, refreshFunction) {
 // Preceeded by populateRequestList, friendBtnSelection
 function createResponseBtn(request, clsName, refreshFunction) {
   const response = createNewEle('div', clsName, '');
-  const acceptBtn = createNewEle('button', 'btn btn-primary btn-sm', 'Accept');
-  const declineBtn = createNewEle('button', 'btn btn-primary btn-sm', 'Decline');
   
   // Accept addEventHandler
-  acceptBtn.addEventListener('click', () => {
-    console.log('accept clicked');
+  const acceptEventHandler = () => {
     fetch(`/request_response`, {
       method: 'PUT',
       headers: {
@@ -191,10 +177,10 @@ function createResponseBtn(request, clsName, refreshFunction) {
       console.log('Error', error)
     });
     
-  });
+  };
 
   // Decline addEventHandler
-  declineBtn.addEventListener('click', () => {
+  const declineEventHandler = () => {
     console.log('decline clicked');
     fetch(`/request_response`, {
       method: 'PUT',
@@ -220,7 +206,10 @@ function createResponseBtn(request, clsName, refreshFunction) {
       console.log('Error', error)
     });
     
-  });
+  };
+
+  const acceptBtn = createSmBtn('Accept', acceptEventHandler);
+  const declineBtn = createSmBtn('Decline', declineEventHandler);
   
   response.append(acceptBtn);
   response.append(declineBtn);
