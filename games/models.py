@@ -1,6 +1,6 @@
 from django.db import models
 from core.models import User
-from datetime import date, timedelta
+from datetime import timedelta
 
 # Create your models here.
 CATEGORY = (

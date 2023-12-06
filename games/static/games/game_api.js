@@ -1,9 +1,5 @@
 'use strict'
 
-function gameData() {
-  // TODO
-}
-
 function gameLog(game_id, level, score, attempt, game_time) {
   fetch('activity_log', {
     method: 'POST',
@@ -25,7 +21,6 @@ function gameLog(game_id, level, score, attempt, game_time) {
   });
 }
 
-
 function getCookie(name) {
   var cookieValue = null;
   if (document.cookie && document.cookie != '') {
@@ -42,4 +37,4 @@ function getCookie(name) {
 }
 
 
-export { gameData, gameLog }
+export { gameLog }

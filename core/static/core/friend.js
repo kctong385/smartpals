@@ -2,7 +2,6 @@ import { getCookie, createNewEle, createSmBtn, addWrappingDiv } from './util.js'
 import { loadProfileView, loadFriendsView, refreshFriendsView } from './index.js'
 
 
-// Preceeded by searchUser
 function populateSearchResult(users) {
   const userUl = document.createElement('div');
   userUl.className = 'searchResult';
@@ -19,8 +18,6 @@ function populateSearchResult(users) {
   return userUl;
 }
 
-
-// Preceeded by loadFriendsView
 // Reload Request List
 function populateRequestList(request_direction) {
   const friendRequestSection = document.querySelector('#friend-request-section');
@@ -74,8 +71,6 @@ function populateRequestList(request_direction) {
   });
 }
 
-
-// Preceeded by loadFriendsView
 // Reload Friend List
 function populateFriendList() {
   const friendListSection = document.querySelector('#friend-list-section');
@@ -118,9 +113,7 @@ function populateFriendList() {
   });
 }
 
-
 // Create button to unfriend a user
-// Preceeded by populateFriendList, friendBtnSelection
 function createUnfriendBtn(profile_id, refreshFunction) {
   const btn = createSmBtn('Unfriend', () => {
     fetch(`/toggle_friend`, {
@@ -137,7 +130,9 @@ function createUnfriendBtn(profile_id, refreshFunction) {
     .then(response => response.json())
     .then(result => {
       console.log(result);
-    });
+    }).catch(error => {
+      console.log('Error', error)
+    });;
     setTimeout(refreshFunction, 100);
   });
 
@@ -146,7 +141,6 @@ function createUnfriendBtn(profile_id, refreshFunction) {
 
 
 // Create button to accept/decline friend request
-// Preceeded by populateRequestList, friendBtnSelection
 function createResponseBtn(request, clsName, refreshFunction) {
   const response = createNewEle('div', clsName, '');
   
@@ -181,7 +175,6 @@ function createResponseBtn(request, clsName, refreshFunction) {
 
   // Decline addEventHandler
   const declineEventHandler = () => {
-    console.log('decline clicked');
     fetch(`/request_response`, {
       method: 'PUT',
       headers: {

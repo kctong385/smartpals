@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
+from datetime import date
 import json
 
 from .models import User, FriendRequest
@@ -62,9 +63,18 @@ def register(request):
     # Attempt to create new user
     try:
       user = User.objects.create_user(username, email, password)
+      
       if date_of_birth is not None:
-        user.date_of_birth = date_of_birth
-        # TODO: render error message if date_of_birth is invalid
+        date_of_birth = date.fromisoformat(date_of_birth)
+        try:
+          User.validate_date_of_birth(date_of_birth)
+        except ValidationError:
+          # Render error message if date_of_birth is invalid
+          return render(request, "core/register.html", {
+          "message": "Invalid date of birth."
+      })
+        else:
+          user.date_of_birth = date_of_birth
         
       if first_name is not None:
         user.first_name = first_name
@@ -101,22 +111,39 @@ def profile_edit(requst):
   
   data = json.loads(requst.body)
   profile_user = requst.user
+  is_changed = False
   
   first_name_input = data["first_name"]
   if first_name_input is not None:
-    profile_user.first_name = first_name_input
+    if profile_user.first_name != first_name_input:
+      profile_user.first_name = first_name_input
+      is_changed = True
     
   last_name_input = data["last_name"]
   if last_name_input is not None:
-    profile_user.last_name = last_name_input
+    if profile_user.last_name != last_name_input:
+      profile_user.last_name = last_name_input
+      is_changed = True
     
   date_of_birth_input = data["date_of_birth"]
+  
   if date_of_birth_input is not None:
-    profile_user.date_of_birth = date_of_birth_input
+    date_of_birth_input = date.fromisoformat(date_of_birth_input)
+    if profile_user.date_of_birth != date_of_birth_input:
+      try:
+        User.validate_date_of_birth(date_of_birth_input)
+      except ValidationError:
+        # Render error message if date_of_birth is invalid
+        return JsonResponse({"error": "Invalid date of birth."}, status=400)
+      else:
+        profile_user.date_of_birth = date_of_birth_input
+        is_changed = True
     
-  profile_user.save()
-  # TODO: Only display message if something is edited.
-  return JsonResponse({"message": "Info edited."}, status=201)
+  if is_changed == True:
+    profile_user.save()
+    return JsonResponse({"message": "Info edited."}, status=201)
+  else:
+    return JsonResponse({"message": "Change not found."}, status=201)
 
 
 @login_required(login_url="/login")
@@ -126,27 +153,35 @@ def toggle_friend(request):
   
   data = json.loads(request.body)
   user = request.user
-  target_user = User.objects.get(pk=data["friend_id"])
-  # TODO: Error if target_user is not found
   
-  if data["action"] == "addfriend":
-    if target_user not in user.friend.all():
-      # Create friend request
-      try: 
-        FriendRequest.objects.get(from_user=user, to_user=target_user)
-      except ObjectDoesNotExist:
-        request = FriendRequest(from_user=user, to_user=target_user)
-        request.save()
-        return JsonResponse({"message": "Friend request sent."}, status=201)
+  try:
+    target_user = User.objects.get(pk=data["friend_id"])
+  except ObjectDoesNotExist:
+    return JsonResponse({"error": "Target user not found."}, status=400)
+  else:
+    if data["action"] == "addfriend":
+      # Create friend request if target is not existing friend
+      if target_user not in user.friend.all():
+        try: 
+          FriendRequest.objects.get(from_user=user, to_user=target_user)
+        except ObjectDoesNotExist:
+          request = FriendRequest(from_user=user, to_user=target_user)
+          request.save()
+          return JsonResponse({"message": "Friend request sent."}, status=201)
+        else:
+          return JsonResponse({"error": "Request already exist."}, status=400)
       else:
-        return JsonResponse({"error": "Request already exist."}, status=400)
-  
-  if data["action"] == "unfriend":
-    if target_user in user.friend.all():
-      user.friend.remove(target_user)
-      return JsonResponse({"message": "Unfriend successful."}, status=201)
+        return JsonResponse({"message": "Existing friend."}, status=201)
     
-  return JsonResponse({"error": "Invalid request."}, status=400)
+    if data["action"] == "unfriend":
+      # Unfriend target if it is existing friend
+      if target_user in user.friend.all():
+        user.friend.remove(target_user)
+        return JsonResponse({"message": "Unfriend successful."}, status=201)
+      else:
+        return JsonResponse({"error": "Friend not found."}, status=201)
+    
+    return JsonResponse({"error": "Invalid request."}, status=400)
 
 
 @login_required(login_url="/login")
@@ -173,11 +208,15 @@ def request_response(request):
   
   try:
     friendrequest = FriendRequest.objects.get(pk=request_id)
+    receiver = friendrequest.to_user
     requester = friendrequest.from_user
-    # TODO: Check request receiver is request.user. Return error if not.
   except ObjectDoesNotExist:
     return JsonResponse({"error": "Request does not exist."}, status=400)
   else:
+    # Check request receiver is request.user. Return error if not.
+    if receiver != user:
+      return JsonResponse({"error": "Invalid request."}, status=400)
+    
     if action == "accept":
       if requester != user:
         user.friend.add(requester)

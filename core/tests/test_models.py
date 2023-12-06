@@ -201,9 +201,9 @@ class coreModelsTestCase(TestCase):
     output = {
       "id": request.id,
       "from_user_id": self.harry["id"],
-      "from_user_name": self.harry["username"],
+      "from_user_name": f'{self.harry["first_name"]} {self.harry["last_name"]}',
       "to_user_id": self.ron["id"],
-      "to_user_name": self.ron["username"],
+      "to_user_name": f'{self.ron["first_name"]} {self.ron["last_name"]}',
       "message": "",
     }
     

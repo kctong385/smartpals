@@ -3,13 +3,11 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import OuterRef, Subquery
 from datetime import timedelta
-from itertools import chain
 
 import json
 
-from .models import Game, Record, CATEGORY, LEVEL
+from .models import Game, Record, LEVEL
 from core.models import User
 
 # Create your views here.
@@ -23,7 +21,7 @@ def games_data(request):
 
   return JsonResponse([game.serialize() for game in games], safe=False)
 
-def get_instruction(request, game_title):
+def game_info(request, game_title):
   game = Game.objects.get(title=game_title)
     
   return JsonResponse(game.serialize())
@@ -112,18 +110,23 @@ def friends_ranking(request):
     
     for game in games:
       for level in LEVEL:
+        # Retrieve all records of current game
         game_records = Record.objects.filter(player__in=player_list, game=game, level=level[0])
         
+        # If any player played this game, retrieve the best record of each player
         if game_records.count() > 0:
+          # Retrieve the best record of the user if any and add to sub query set
           sub_qs = game_records.filter(player=user).order_by("-score", "attempts", "game_time", "end_timestamp")[:1]
           
+          # Obtain the best record of each of user's friends who has played this game and add to sub query set
           if friends.count() > 0:
             for player in friends:
-              sub_qs_1 = game_records.filter(player=player).order_by("-score", "attempts", "game_time", "end_timestamp")[:1]    
-              sub_qs = sub_qs | sub_qs_1
+              sub_qs = sub_qs | game_records.filter(player=player).order_by("-score", "attempts", "game_time", "end_timestamp")[:1]    
               
+            # Retrieve the best 3 records from the sub query set
             sub_qs = sub_qs.order_by("-score", "attempts", "game_time", "end_timestamp")[:3]
-              
+          
+          # Append serialized sub query set best record to games_ranking    
           games_ranking.append(
             [game_record.serialize() for game_record in sub_qs]
           )

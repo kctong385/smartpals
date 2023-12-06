@@ -2,8 +2,8 @@
 
 import { createGameBtn, createElement, createInput } from './create.js';
 import { displayView, gameResultView, fadeOut, fadeIn } from './display.js';
-import { getRandomArbitrary } from './content_gen.js';
-import { gameData, gameLog } from './game_api.js';
+import { getRandomArbitrary } from './utils.js';
+import { gameLog } from './game_api.js';
 
 // Load the structure of Addition game page
 function loadMathGamePage(level, game_data) {
@@ -13,14 +13,13 @@ function loadMathGamePage(level, game_data) {
   var attempt = 0;
   var counter = 0;
 
-  const view = document.querySelector('#activities-view > div');
+  const view = document.querySelector('#activities-view div');
 
   // Start timer
   function count() {
     counter++;
-    console.log(counter);
   }
-  let gameTime = setInterval(count, 1000);
+  var gameTime = setInterval(count, 1000);
 
   fadeOut(view, () => {
     view.innerHTML = '';
@@ -55,9 +54,17 @@ function loadMathGamePage(level, game_data) {
       createElement('div', 'score-sub', `Score: `)
     );
     scoreView.append(
-      createElement('div', 'score-sub', `x`)
+      createElement('div', 'score-sub', ``)
     );
   
+    // Add Answer button
+    const btnAnswer = createGameBtn('Answer', '');
+    // Add Answer button div
+    const btnAnswerDiv = document.createElement('div');
+    btnAnswerDiv.append(btnAnswer);
+    
+    view.append(btnAnswerDiv);
+
     // Add Back button
     const btnBack = createGameBtn('Back', function() {
       clearInterval(gameTime);
@@ -78,43 +85,40 @@ function loadMathGamePage(level, game_data) {
 
 
   function gameMaths() {
-    const quizView = document.querySelector('#activities-view div div.game-quiz');
-    const scoreValueView = document.querySelectorAll('#activities-view div div.game-score div.score-sub')[1];
-    const gameInput = document.querySelector('#activities-view div input.game-input');
-    let quiz_num;
-    let quiz_num1;
-    let quiz_num2;
-    let quiz_answer;
+    var quizView = document.querySelector('#activities-view div div.game-quiz');
+    var scoreValueView = document.querySelectorAll('#activities-view div div.game-score div.score-sub')[1];
+    var gameInput = document.querySelector('#activities-view div input.game-input');
+    const answerBtn = document.querySelectorAll('#activities-view div div button')[0];
+    let quiz_set;
     let operator;
-    let inputHandler;
     
     // Generate quiz
     switch (game_data['title']) {
       case 'Addition':
-        quiz_num = generateAdditionQuiz(level);
+        quiz_set = generateAdditionQuiz(level);
         operator = '+';
         break;
   
       case 'Subtraction':
-        quiz_num = generateSubtractionQuiz(level);
+        quiz_set = generateSubtractionQuiz(level);
         operator = '-';
         break;
   
       case 'Multiplication':
-        quiz_num = generateMultiplicationQuiz(level);
+        quiz_set = generateMultiplicationQuiz(level);
         operator = 'x';
         break;
   
       case 'Division':
-        quiz_num = generateDivisionQuiz(level);
+        quiz_set = generateDivisionQuiz(level);
         operator = '÷';
         break;
     }
   
     // Display quiz
-    quiz_num1 = quiz_num[0];
-    quiz_num2 = quiz_num[1];
-    quiz_answer = quiz_num[2];
+    let quiz_num1 = quiz_set[0];
+    let quiz_num2 = quiz_set[1];
+    var quiz_answer = quiz_set[2];
     quizView.innerHTML = `${quiz_num1} ${operator} ${quiz_num2}`;
     quizView.classList.remove('incorrect');
     scoreValueView.innerHTML = `${score}`;
@@ -124,59 +128,88 @@ function loadMathGamePage(level, game_data) {
     gameInput.autofocus = true;
   
     // Define event handler on answer input
+    var inputHandler;
     gameInput.addEventListener('keyup', inputHandler = (event) => {
-      var answer_input;
       if (event.key === "Enter") {
-        answer_input = parseInt(gameInput.value);
-        attempt += 1;
+        const answer_input = parseInt(gameInput.value);
         
-        // Check answer
-        if (answer_input === quiz_answer) {
-          score += 1;
-          scoreValueView.classList.add('score_up');
-          scoreValueView.addEventListener('animationend', () => {
-            scoreValueView.classList.remove('score_up');
-          })
-        } else {
-          score -= 1;
-          quizView.classList.add('incorrect');
-          scoreValueView.classList.add('score_down');
-          scoreValueView.addEventListener('animationend', () => {
-            scoreValueView.classList.remove('score_down');
-          })
-        }
+        // Check answer, score update and effect
+        checkAnswer(answer_input);
 
+        // Follow up action according to score result
+        followUpAction(answer_input);
+      }
+    });
+
+    var btnEventHandler;
+    answerBtn.addEventListener('click', btnEventHandler = () => {
+      const answer_input = parseInt(gameInput.value);
+      checkAnswer(answer_input);
+      followUpAction(answer_input);
+    })
+
+    function checkAnswer(answer) {
+      attempt += 1;
+      // Check answer, score update and effect
+      if (answer === quiz_answer) {
+        score += 1;
         // Score change animation
-        scoreValueView.innerHTML = `${score}`;
-    
-        if (score === 10) {
+        scoreValueView.classList.add('score_up');
+        scoreValueView.addEventListener('animationend', () => {
+          scoreValueView.classList.remove('score_up');
+        })
+      } else {
+        score -= 1;
+        // Score down effect
+        quizView.classList.add('incorrect');
+        // Score change animation
+        scoreValueView.classList.add('score_down');
+        scoreValueView.addEventListener('animationend', () => {
+          scoreValueView.classList.remove('score_down');
+        })
+      }
+      scoreValueView.innerHTML = `${score}`;
+    }
+
+    function followUpAction(answer) {
+      // Follow up action according to score result
+      switch (true) {
+        case (score === 10):
           // Game completed
           clearInterval(gameTime);
           // Log game data
           gameLog(game_data['id'], level, score, attempt, counter);
           // Display Win View
           gameResultView('win');
-        } else {
-          if (score < 0) {
-            // Game over
-            clearInterval(gameTime);
-            // Log game data
-            gameLog(game_data['id'], level, 0, attempt, counter);
-            // Display Lose View
-            gameResultView('lose');
+          break;
+
+        case (score < 0):
+          // Game is over
+          clearInterval(gameTime);
+          // Log game data
+          gameLog(game_data['id'], level, 0, attempt, counter);
+          // Display Lose View
+          gameResultView('lose');
+          break;
+
+        default:
+          if (answer === quiz_answer) {
+            // Next quiz
+            removeAnswerHandlers();
+            gameMaths();
           } else {
-            if (answer_input === quiz_answer) {
-              // Next quiz
-              gameInput.removeEventListener('keyup', inputHandler);
-              gameMaths(); // game_data, level, score, attempt
-            } else {
-              // Try again
-              gameInput.value = '';
-            }
+            // Try again
+            gameInput.value = '';
           }
-        }
+          break;
       }
-    });
+    }
+
+    function removeAnswerHandlers() {
+      gameInput.removeEventListener('keyup', inputHandler);
+      answerBtn.removeEventListener('click', btnEventHandler);
+    }
+
   }
 }
 

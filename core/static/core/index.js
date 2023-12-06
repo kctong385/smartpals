@@ -7,6 +7,28 @@ import { populateActivities, populateFriendActivities, populateGameRanking, popu
 
 
 document.addEventListener("DOMContentLoaded", function() {
+  // Handle navigation using the History API
+  document.addEventListener('click', function (event) {
+    const anchor = event.target.closest('a');
+    if (anchor) {
+      const href = anchor.getAttribute('href');
+      if (href != '/logout' && href != '/games/') {
+        event.preventDefault();
+        history.pushState(null, null, href);
+        handleRoute(href);
+      }
+    }
+
+    if (event.target.classList.contains('requestLiUsername')) {
+      history.pushState(null, null, '/profile');
+    }
+  });
+
+  // When back arrow is clicked, show previous section
+  window.onpopstate = function() {
+    handleRoute(window.location.pathname);
+  }
+
   // Profile button handler
   let profileBtnHandler;
   document.querySelector('#profileBtn').addEventListener('click', profileBtnHandler = () => {
@@ -24,13 +46,34 @@ document.addEventListener("DOMContentLoaded", function() {
   // Searchbar
   document.querySelector('#searchInput').addEventListener('keyup', () => {
     searchUser();
-    console.log('Search!')
   });
 
   // Load index view initially
   const view = document.querySelector('#index-view-container');
+  // history.pushState({view: 'index'}, '', 'index');
   fadeIn(view, '');
 });
+
+// Function to handle routes
+function handleRoute(route) {
+  switch (route) {
+      case '/index':
+        displayView('index');
+        break;
+      case '/profile':
+        displayView('profile');
+        break;
+      case '/friends':
+        displayView('friends');
+        break;
+      case '/games':
+        window.location.href = '/games';
+        break;
+
+      default:
+        displayView('index');
+  }
+}
 
 function displayView(view) {
   var id;
@@ -62,7 +105,6 @@ function displayView(view) {
 
 }
 
-
 function loadProfileView(profile_id=0) {
   // PROFILE USER INFO SECTION
   generateProfile(profile_id);
@@ -76,7 +118,6 @@ function loadProfileView(profile_id=0) {
   displayView('profile');
 }
 
-// Initialize Friend View
 function loadFriendsView() {
   // Populate friend request
   populateRequestList('received');
@@ -114,11 +155,10 @@ function searchUser() {
   const target = document.querySelector('#search-result-view');
 
   if (searchInput.trim() != '') {
-    // fetch searchInput to url and response a filtered user list
+    // Fetch searchInput to url and response a filtered user list
     fetch(`/search/${searchInput}`)
     .then(response => response.json())
     .then(users => {
-      console.log(searchInput);
       target.innerHTML = '';
 
       if (users.length > 0) {

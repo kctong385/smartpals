@@ -1,3 +1,40 @@
+/* Common Game Style */
+.game-heading {
+  font-size: 5rem;
+  margin-top: 2vh;
+}
+
+.game-quiz {
+  font-size: 4rem;
+  margin: 4vh auto;
+}
+
+.game-instruction {
+  font-size: 1.5rem;
+}
+
+.game-indication {
+  font-size: 2rem;
+  margin: 2vh auto;
+}
+
+.game-score {
+  font-size: 2rem;
+  margin: 2vh auto;
+  width: min-content;
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.score-sub {
+  margin: 5px;
+}
+
+.game-result {
+  font-size: 8rem;
+  margin: 8vh auto;
+}
+
 /* Incorrect quiz */
 .incorrect {
   color: red;

@@ -23,12 +23,9 @@
 .gameBtn {
   position: relative;
   background: transparent;
-  /* background: hsl(340deg 100% 32%); */
-  /* border-radius: 12px; */
   border: none;
   padding: 0;
   cursor: pointer;
-  /* outline-offset: 4px; */
   margin: 6px;
   width: 180px;
   will-change: transform;
@@ -66,7 +63,6 @@
 }
 
 .gameBtnFront {
-  /* display: block; */
   position: relative;
   display: block;
   padding: 16px 24px;
@@ -110,42 +106,4 @@
 .gameBtn:focus:not(:focus-visible) {
   outline: none;
 }
-
-
-/* Maths Game Style */
-.game-heading {
-  font-size: 5rem;
-}
-
-.game-quiz {
-  font-size: 4rem;
-  margin: 4vh auto;
-}
-
-.game-instruction {
-  font-size: 1.5rem;
-}
-
-.game-indication {
-  font-size: 2rem;
-  margin: 2vh auto;
-}
-
-.game-score {
-  font-size: 2rem;
-  margin: 2vh auto;
-  width: min-content;
-  display: grid;
-  grid-template-columns: auto auto;
-}
-
-.score-sub {
-  margin: 5px;
-}
-
-.game-result {
-  font-size: 8rem;
-  margin: 8vh auto;
-}
-
 

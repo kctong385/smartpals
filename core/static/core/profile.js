@@ -1,7 +1,7 @@
 import { getCookie, createNewEle, createInput, createSmBtn, addWrappingDiv, fadeIn, fadeOut } from './util.js';
 import { createResponseBtn, createUnfriendBtn } from './friend.js';
 
-// Preceeded by loadProfileView
+
 function generateProfile(profile_id) {
   const target = document.querySelector('#user-info-section');
 
@@ -9,7 +9,8 @@ function generateProfile(profile_id) {
 
   fetch(`/profile/${profile_id}`)
   .then(response => response.json())
-  .then(data => {// Kid's name
+  .then(data => {
+    // Kid's name
     target.append(createNewEle(
       'div', // tag
       'profile_name',  // class
@@ -38,27 +39,13 @@ function generateProfile(profile_id) {
       target.append(editBtn);
     } else {
       // Create Friend / Unfriend button
-      const friendBtn = createNewEle('button', 'btn btn-outline-primary btn-sm', '');
-      if (data.is_friend) {
-        friendBtn.innerHTML = 'Add Friend';
-      } else {
-        friendBtn.innerHTML = 'Unfriend';
-      }
-
-      // Add event handler
-      friendBtn.addEventListener('click', () => {
-        friendBtnHandler();
-      })
-
       target.append(friendBtnSelection(data));
     }
   });
 
 }
 
-
 function generateEditForm(data, target) {
-  // Empty target
   target.innerHTML = '';
 
   const editForm = document.createElement('div');
@@ -99,7 +86,6 @@ function generateEditForm(data, target) {
 
   // Create save button
   const saveBtn = createSmBtn('Save', () => {
-    // Fetch data
     fetch(`/profile/edit`, {
       method: 'PUT',
       headers: {
@@ -134,7 +120,6 @@ function generateEditForm(data, target) {
 
 
 // Create Friend/Unfriend button
-// Preceeded by generateProfile
 function friendBtnSelection(data) {
   if (data.is_friend) {
     // Create unfriend button
@@ -151,7 +136,6 @@ function friendBtnSelection(data) {
 
     // Request Sent: Button disable and display 'Pending'
     if (data.friend_request_status === 'sent') {
-      // const btn = createNewEle('button', clsName, 'Pending');
       const btn = createSmBtn('Pending', () => {})
       btn.disabled = true;
       return btn;

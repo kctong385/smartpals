@@ -18,7 +18,6 @@ function createGameBtn(btnName, handlerFunc) {
   let gameBtnHandler;
   gameBtn.addEventListener('click', gameBtnHandler = () => {
     setTimeout(handlerFunc, 100);
-    gameBtn.removeEventListener('click', gameBtnHandler);
   });
 
   return gameBtn;
@@ -41,5 +40,6 @@ function createInput(clsName, type, value, placeholder) {
   element.placeholder = placeholder;
   return element
 }
+
 
 export { createGameBtn, createElement, createInput }

@@ -6,7 +6,7 @@ class GameAdmin(admin.ModelAdmin):
   list_display = ("id", "title", "category")
   
 class RecordAdmin(admin.ModelAdmin):
-  list_display = ("id", "player", "game", "end_timestamp")
+  list_display = ("id", "player", "game", "level", "score", "attempts", "game_time", "end_timestamp")
 
 
 admin.site.register(Game, GameAdmin)

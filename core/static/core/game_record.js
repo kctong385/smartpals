@@ -33,7 +33,6 @@ function populateActivities(profile_id) {
   });
 }
 
-
 function populateFriendActivities() {
   const section = document.querySelector('#friends-activities-section');
   section.innerHTML = ''
@@ -65,7 +64,6 @@ function populateFriendActivities() {
     }
   });
 }
-
 
 function populateGameRanking(profile_id) {
   const section = document.querySelector('#profile-ranking-section');

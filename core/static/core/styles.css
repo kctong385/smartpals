@@ -57,7 +57,7 @@ button {
 .register-form-container {
   width: 285px;
   margin: auto;
-  margin-top: 20vh;
+  margin-top: 15vh;
 }
 
 .profile-edit-form {
@@ -241,16 +241,9 @@ button {
   font-size: 5rem;
 }
 
-
-/* For mobile phones: */
-@media (max-width: 767px) {
-  /* CSS rules */
-}
-/* For tablets: */
-@media (min-width: 768px) and (max-width: 991px) {
-  /* CSS rules */
-}
-/* For desktops: */
-@media (min-width: 992px) {
-  /* CSS rules */
+.system-message {
+  font-size: 1.2rem;
+  color: red;
+  text-shadow: 1px 1px 1px black;
+  padding: 10px;
 }
