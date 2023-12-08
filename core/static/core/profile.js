@@ -1,4 +1,4 @@
-import { getCookie, createNewEle, createInput, createSmBtn, addWrappingDiv, fadeIn, fadeOut } from './util.js';
+import { getCookie, createNewEle, createInput, createSmBtn, addWrappingDiv, fadeIn, fadeOut } from './utils.js';
 import { createResponseBtn, createUnfriendBtn } from './friend.js';
 
 

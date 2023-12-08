@@ -1,9 +1,9 @@
 'use strict'
 
-import { createGameBtn, createElement, createInput } from './create.js';
 import { displayView, gameResultView, fadeOut, fadeIn } from './display.js';
-import { getRandomArbitrary } from './utils.js';
+import { getRandomArbitrary, createGameBtn, createElement, createInput } from './utils.js';
 import { gameLog } from './game_api.js';
+import { handleRoute } from './games.js';
 
 // Load the structure of Addition game page
 function loadMathGamePage(level, game_data) {
@@ -72,6 +72,9 @@ function loadMathGamePage(level, game_data) {
         gameLog(game_data['id'], level, score, attempt, counter);
       }
       displayView('#activities-content-view');
+      history.pushState(null, null, `/games`);
+      // handleRoute('/games');
+      // history.back();
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);
@@ -174,7 +177,7 @@ function loadMathGamePage(level, game_data) {
     function followUpAction(answer) {
       // Follow up action according to score result
       switch (true) {
-        case (score === 10):
+        case (score === 5):
           // Game completed
           clearInterval(gameTime);
           // Log game data

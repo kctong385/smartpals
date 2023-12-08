@@ -1,5 +1,5 @@
-import { getCookie, createNewEle, createSmBtn, addWrappingDiv } from './util.js';
-import { loadProfileView, loadFriendsView, refreshFriendsView } from './index.js'
+import { getCookie, createNewEle, createSmBtn, addWrappingDiv } from './utils.js';
+import { loadProfileView, refreshFriendsView } from './index.js'
 
 
 function populateSearchResult(users) {

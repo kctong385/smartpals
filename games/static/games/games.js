@@ -1,6 +1,5 @@
 import { displayView, fadeIn } from './display.js';
-import { createGameBtn, createElement } from './create.js';
-import { capitalize_str } from './utils.js';
+import { capitalize_str, createGameBtn, createElement } from './utils.js';
 import { loadLevelView } from './level.js';
 
 
@@ -42,7 +41,8 @@ function handleRoute(route) {
       loadLevelView('Memory');
       break;
     case '/games':
-      window.location.href = '/games';
+      // window.location.href = '/games';
+      displayView('#activities-content-view');
       break;
 
     default:
@@ -86,9 +86,6 @@ function populateContentView() {
         const gameLi = document.createElement('li');
         const gameBtn = createGameBtn(gameData.title, () => {
           loadLevelView(gameData.title);
-
-          // Handle navigation using the History API
-          history.pushState(null, null, `/games/${gameData.title}`);
         })
         
         gameLi.append(gameBtn);
@@ -110,3 +107,6 @@ function populateContentView() {
     }
   })
 }
+
+
+export { handleRoute }

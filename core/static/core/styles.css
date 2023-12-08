@@ -47,6 +47,12 @@ button {
   margin: 2px;
 }
 
+.project-info {
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 2vh auto;
+}
+
 /* Forms */
 .login-form-container {
   width: 285px;
@@ -86,12 +92,10 @@ button {
   width: 100vw;
   height: calc(100vh - 100px);
   overflow: auto;
-  /* border: solid 1px black; */
 }
 
 .view-section {
   margin: 0 auto 30px;
-  /* border: solid 1px black; */
 }
 
 /* Index view buttons */

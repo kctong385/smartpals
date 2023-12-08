@@ -12,7 +12,6 @@ from core.models import User
 
 # Create your views here.
 def games_view(request):
-  # load all posts
   return render(request, "games/games.html")
 
 

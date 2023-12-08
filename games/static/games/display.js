@@ -1,6 +1,6 @@
 'use strict'
 
-import { createGameBtn, createElement } from './create.js';
+import { createGameBtn, createElement } from './utils.js';
 
 function displayView(selector) {
   // Define the view to be displayed

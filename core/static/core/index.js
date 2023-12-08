@@ -1,6 +1,6 @@
 'use strict'
 
-import { fadeIn, fadeOut } from './util.js';
+import { fadeIn, fadeOut } from './utils.js';
 import { generateProfile } from './profile.js';
 import { populateSearchResult, populateRequestList, populateFriendList } from './friend.js';
 import { populateActivities, populateFriendActivities, populateGameRanking, populateFriendGameRanking } from './game_record.js';
@@ -20,6 +20,10 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     if (event.target.classList.contains('requestLiUsername')) {
+      history.pushState(null, null, '/profile');
+    }
+
+    if (event.target.parentElement.classList.contains('searchResult')) {
       history.pushState(null, null, '/profile');
     }
   });

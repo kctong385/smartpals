@@ -1,6 +1,6 @@
 'use strict'
 
-import { createNewEle, generateTable } from './util.js';
+import { createNewEle, generateTable } from './utils.js';
 
 function populateActivities(profile_id) {
   const section = document.querySelector('#profile-activities-section');

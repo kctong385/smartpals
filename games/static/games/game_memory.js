@@ -1,9 +1,9 @@
 'use strict'
 
-import { createGameBtn, createElement } from './create.js';
 import { displayView, gameResultView, fadeOut, fadeIn } from './display.js';
-import { shuffle } from './utils.js';
+import { shuffle, createGameBtn, createElement } from './utils.js';
 import { gameLog } from './game_api.js';
+import { handleRoute } from './games.js';
 
 // Load the structure of Memory game page
 function loadMemoryView(level, game_data) {
@@ -60,6 +60,9 @@ function loadMemoryView(level, game_data) {
         gameLog(game_data['id'], level, score, attempt, counter);
       }
       displayView('#activities-content-view');
+      history.pushState(null, null, `/games`);
+      // handleRoute('/games');
+      // history.back();
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);

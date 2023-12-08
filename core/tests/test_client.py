@@ -51,7 +51,6 @@ class coreClientTestCase(StaticLiveServerTestCase):
     
     # Assert url
     self.assertURLEqual(self.selenium.current_url, self.live_server_url + reverse('register'))
-    # self.assertURLEqual(self.selenium.current_url, f"{self.live_server_url}/register")
     
     """TEST REGISTER FAILED"""
     register_arg = {
@@ -68,7 +67,6 @@ class coreClientTestCase(StaticLiveServerTestCase):
     
     # Assert url
     self.assertURLEqual(self.selenium.current_url, self.live_server_url + reverse('register'))
-    # self.assertURLEqual(self.selenium.current_url, f"{self.live_server_url}/register")
     
     # Assert message
     try:
@@ -167,7 +165,7 @@ class coreClientTestCase(StaticLiveServerTestCase):
       logout_button.click()
       
     # Assert url
-    self.assertURLEqual(self.selenium.current_url, self.live_server_url + reverse('login') + "?next=/")
+    self.assertURLEqual(self.selenium.current_url, self.live_server_url + reverse('login') + "?next=/index")
     
     
   def register(self, username, email, password, confirmation, last_name, first_name, date_of_birth):
