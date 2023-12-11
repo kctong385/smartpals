@@ -3,7 +3,6 @@
 import { displayView, gameResultView, fadeOut, fadeIn } from './display.js';
 import { shuffle, createGameBtn, createElement } from './utils.js';
 import { gameLog } from './game_api.js';
-import { handleRoute } from './games.js';
 
 // Load the structure of Memory game page
 function loadMemoryView(level, game_data) {

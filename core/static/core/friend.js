@@ -139,7 +139,6 @@ function createUnfriendBtn(profile_id, refreshFunction) {
   return btn;
 }
 
-
 // Create button to accept/decline friend request
 function createResponseBtn(request, clsName, refreshFunction) {
   const response = createNewEle('div', clsName, '');

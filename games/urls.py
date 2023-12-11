@@ -4,6 +4,8 @@ from . import views
 
 urlpatterns = [
   path("", views.games_view, name="games"),
+  
+  # API route
   path("games_data", views.games_data, name="games_data"),
   path("info/<str:game_title>", views.game_info, name="game_info"),
   path("activity_log", views.activity_log, name="activity_log"),

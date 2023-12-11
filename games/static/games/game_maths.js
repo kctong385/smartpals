@@ -3,7 +3,6 @@
 import { displayView, gameResultView, fadeOut, fadeIn } from './display.js';
 import { getRandomArbitrary, createGameBtn, createElement, createInput } from './utils.js';
 import { gameLog } from './game_api.js';
-import { handleRoute } from './games.js';
 
 // Load the structure of Addition game page
 function loadMathGamePage(level, game_data) {
@@ -177,7 +176,7 @@ function loadMathGamePage(level, game_data) {
     function followUpAction(answer) {
       // Follow up action according to score result
       switch (true) {
-        case (score === 5):
+        case (score === 10):
           // Game completed
           clearInterval(gameTime);
           // Log game data

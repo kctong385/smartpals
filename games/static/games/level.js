@@ -4,7 +4,6 @@ import { createGameBtn } from './utils.js';
 import { displayView } from './display.js';
 import { loadMathGamePage } from './game_maths.js';
 import { loadMemoryView } from './game_memory.js';
-import { handleRoute } from './games.js';
 
 function loadLevelView(game) {
   // Handle navigation using the History API
@@ -52,8 +51,6 @@ function loadLevelView(game) {
       displayView('#activities-content-view');
       // Handle navigation using the History API
       history.pushState(null, null, `/games`);
-      // handleRoute('/games');
-      // history.back();
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);

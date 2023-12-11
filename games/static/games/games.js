@@ -41,7 +41,6 @@ function handleRoute(route) {
       loadLevelView('Memory');
       break;
     case '/games':
-      // window.location.href = '/games';
       displayView('#activities-content-view');
       break;
 
