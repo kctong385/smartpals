@@ -1,0 +1,77 @@
+/* Memory Game Style */
+:root {
+  --grid-cols: 1;
+  --grid-rows: 1;
+}
+
+
+.memory-quiz {
+  width: 70%;
+  margin: 5vh auto;
+  display: grid;
+  grid-gap: 1em;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+
+.grid-item {
+  border: 0;
+  background-color: transparent;
+  text-align: center;
+  font-size: 3rem;
+  perspective: 600px;
+  height: 72px;
+}
+
+.memory-active-cell {
+  transform: scale(1.1);
+}
+
+.memory-correct-cell {
+  transform: scale(1.1);
+}
+
+.memory-correct-cell .card.is-flipped .cardFaceBack {
+  border: 4px solid greenyellow;
+}
+
+
+/* Flip card animation */
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transform-style: preserve-3d;
+  transform-origin: center right;
+  transition: transform 1s;
+  background-color: transparent;
+  border: 0px;
+}
+
+.card.is-flipped {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+
+.cardFace {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.cardFaceFront {
+  background-color: #fff;
+  background-image: linear-gradient(45deg, crimson 25%, transparent 25%, transparent 75%, crimson 75%), 
+                    linear-gradient(45deg, crimson 25%, transparent 25%, transparent 75%, crimson 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 25px 25px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.cardFaceBack {
+  transform: rotateY(180deg);
+  border: 2px solid black;
+  border-radius: 10px;
+}

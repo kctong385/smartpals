@@ -1,0 +1,92 @@
+/* Small 3D Button */
+.smBtn {
+  position: relative;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 6px;
+  width: auto;
+  will-change: transform;
+  transition: transform 250ms;
+  transition: filter 600ms;
+}
+
+.smBtnShadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  transform: translateY(2px);
+  filter: blur(4px);
+}
+
+.smBtnEdge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(340deg 100% 32%);
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.smBtnFront {
+  position: relative;
+  display: block;
+  padding: 5px 25px;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: hsl(345deg 100% 47%);
+  color: rgb(0, 251, 255);
+  transform: translateY(-4px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+.smBtn:hover:not(:disabled) {
+  transition: filter 250ms;
+  filter: brightness(110%);
+}
+
+.smBtn:hover:not(:disabled) .smBtnFront {
+  transform: translateY(-6px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.smBtn:hover:not(:disabled) .smBtnShadow {
+  transform: translateY(4px);
+}
+
+.smBtn:active:not(:disabled) .smBtnFront {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.smBtn:active:not(:disabled) .smBtnShadow {
+  transform: translateY(1px);
+}
+
+.smBtn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.smBtn:disabled {
+  color: rgba(0, 251, 255, 0.8);
+  filter: grayscale(50%);
+}
