@@ -11,18 +11,18 @@ from .models import Game, Record, LEVEL
 from core.models import User
 
 # Create your views here.
+@login_required(login_url="core/login")
 def games_view(request):
   return render(request, "games/games.html")
 
 
 def games_data(request):
   games = Game.objects.all()
-
   return JsonResponse([game.serialize() for game in games], safe=False)
 
+
 def game_info(request, game_title):
-  game = Game.objects.get(title=game_title)
-    
+  game = Game.objects.get(title=game_title)    
   return JsonResponse(game.serialize())
 
 
@@ -57,7 +57,6 @@ def recent_activities(request, profile_id):
     profile_user = user
     
   game_records = Record.objects.filter(player=profile_user).order_by('-end_timestamp')[:10]
-  
   return JsonResponse([game_record.serialize() for game_record in game_records], safe=False)
   
   
@@ -67,7 +66,6 @@ def friends_activities(request):
   friends = user.friend.all()
   
   game_records = Record.objects.filter(player__in=friends).order_by('-end_timestamp')[:10]
-  
   return JsonResponse([game_record.serialize() for game_record in game_records], safe=False)
   
   
