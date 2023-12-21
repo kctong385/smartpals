@@ -162,6 +162,9 @@ function loadMathGamePage(level, game_data) {
         })
       } else {
         score -= 1;
+        if (score < 0) {
+          score = 0;
+        }
         // Score down effect
         quizView.classList.add('incorrect');
         // Score change animation
@@ -185,14 +188,14 @@ function loadMathGamePage(level, game_data) {
           gameResultView('win');
           break;
 
-        case (score < 0):
-          // Game is over
-          clearInterval(gameTime);
-          // Log game data
-          gameLog(game_data['id'], level, 0, attempt, counter);
-          // Display Lose View
-          gameResultView('lose');
-          break;
+        // case (score < 0):
+        //   // Game is over
+        //   clearInterval(gameTime);
+        //   // Log game data
+        //   gameLog(game_data['id'], level, 0, attempt, counter);
+        //   // Display Lose View
+        //   gameResultView('lose');
+        //   break;
 
         default:
           if (answer === quiz_answer) {
