@@ -21,10 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-try:
-    SECRET_KEY = os.environ["SECRET_KEY"]
-except KeyError as e:
-    raise RuntimeError("Could not find a SECRET_KEY in environment") from e
+SECRET_KEY = "django-insecure-agsj1&!%an1l!2gnmcq@q2#2io28109k2s+50#*x$5d-ftmhsc"
+# try:
+#     SECRET_KEY = os.environ["SECRET_KEY"]
+# except KeyError as e:
+#     raise RuntimeError("Could not find a SECRET_KEY in environment") from e
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -89,19 +90,25 @@ WSGI_APPLICATION = "education.wsgi.application"
 if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         "default": {
+            # "ENGINE": "django.db.backends.postgresql",
+            # "NAME": os.environ['RDS_DB_NAME'],
+            # "USER": os.environ['RDS_USERNAME'],
+            # "PASSWORD": os.environ['RDS_PASSWORD'],
+            # "HOST": os.environ['RDS_HOSTNAME'],
+            # "PORT": os.environ['RDS_PORT'],
             "ENGINE": "django.db.backends.postgresql",
-            "NAME": os.environ['RDS_DB_NAME'],
-            "USER": os.environ['RDS_USERNAME'],
-            "PASSWORD": os.environ['RDS_PASSWORD'],
-            "HOST": os.environ['RDS_HOSTNAME'],
-            "PORT": os.environ['RDS_PORT'],
+            "NAME": "ebdb",
+            "USER": "smartpalsuser",
+            "PASSWORD": "7tphrbin",
+            "HOST": "awseb-e-qwpcxykmxv-stack-awsebrdsdatabase-mp1h1ot5ti7b.cb135pp0lhpc.us-west-2.rds.amazonaws.com",
+            "PORT": "5432",
         }
     }
 else:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3")
+            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
         }
     }
 
