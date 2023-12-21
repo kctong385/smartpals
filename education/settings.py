@@ -86,15 +86,15 @@ WSGI_APPLICATION = "education.wsgi.application"
 #    }
 #}
 
-if 'RDS_DB_NAME' in os.environ:
+if 'RDS_HOSTNAME' in os.environ:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.postgresql",
             "NAME": os.environ['RDS_DB_NAME'],
-            "USER": os.environ['RDS_DB_USERNAME'],
-            "PASSWORD": os.environ['RDS_DB_PASSWORD'],
-            "HOST": os.environ['RDS_DB_HOSTNAME'],
-            "PORT": os.environ['RDS_DB_PORT'],
+            "USER": os.environ['RDS_USERNAME'],
+            "PASSWORD": os.environ['RDS_PASSWORD'],
+            "HOST": os.environ['RDS_HOSTNAME'],
+            "PORT": os.environ['RDS_PORT'],
         }
     }
 else:
