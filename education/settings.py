@@ -32,8 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1', 
     'django-env-smartpals.eba-yimz2weh.us-west-2.elasticbeanstalk.com',
-    'smartpals.fun'
-    'www.smartpals.fun'
+    'smartpals.fun',
+    'www.smartpals.fun',
 ]
 
 
