@@ -7,7 +7,7 @@ import { gameLog } from './game_api.js';
 // Load the structure of Addition game page
 function loadMathGamePage(level, game_data) {
   // Declare game variables
-  const init_score = { '1': 3, '2': 2, '3': 1 };
+  const init_score = { '1': 0, '2': 0, '3': 0 };
   var score = init_score[level];
   var attempt = 0;
   var counter = 0;
