@@ -40,7 +40,7 @@ function loadMathGamePage(level, game_data) {
     
     // Add input
     view.append(
-      createInput('game-input', 'integer', '', 'Answer')
+      createInput('game-input', 'number', '', 'Answer')
     );
   
     // Display score
@@ -72,8 +72,6 @@ function loadMathGamePage(level, game_data) {
       }
       displayView('#activities-content-view');
       history.pushState(null, null, `/games`);
-      // handleRoute('/games');
-      // history.back();
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);
@@ -133,22 +131,24 @@ function loadMathGamePage(level, game_data) {
     var inputHandler;
     gameInput.addEventListener('keyup', inputHandler = (event) => {
       if (event.key === "Enter") {
-        const answer_input = parseInt(gameInput.value);
-        
-        // Check answer, score update and effect
-        checkAnswer(answer_input);
-
-        // Follow up action according to score result
-        followUpAction(answer_input);
+        answeringActions();
       }
     });
 
     var btnEventHandler;
     answerBtn.addEventListener('click', btnEventHandler = () => {
-      const answer_input = parseInt(gameInput.value);
-      checkAnswer(answer_input);
-      followUpAction(answer_input);
+      answeringActions();
     })
+
+    function answeringActions() {
+      const answer_input = parseInt(gameInput.value);
+        
+      // Check answer, score update and effect
+      checkAnswer(answer_input);
+
+      // Follow up action according to score result
+      followUpAction(answer_input);
+    }
 
     function checkAnswer(answer) {
       attempt += 1;

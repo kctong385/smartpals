@@ -7,7 +7,7 @@ import { gameLog } from './game_api.js';
 // Load the structure of Addition game page
 function loadMathGamePage(level, game_data) {
   // Declare game variables
-  const init_score = { '1': 3, '2': 2, '3': 1 };
+  const init_score = { '1': 0, '2': 0, '3': 0 };
   var score = init_score[level];
   var attempt = 0;
   var counter = 0;
@@ -72,8 +72,6 @@ function loadMathGamePage(level, game_data) {
       }
       displayView('#activities-content-view');
       history.pushState(null, null, `/games`);
-      // handleRoute('/games');
-      // history.back();
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);
@@ -133,22 +131,24 @@ function loadMathGamePage(level, game_data) {
     var inputHandler;
     gameInput.addEventListener('keyup', inputHandler = (event) => {
       if (event.key === "Enter") {
-        const answer_input = parseInt(gameInput.value);
-        
-        // Check answer, score update and effect
-        checkAnswer(answer_input);
-
-        // Follow up action according to score result
-        followUpAction(answer_input);
+        answeringActions();
       }
     });
 
     var btnEventHandler;
     answerBtn.addEventListener('click', btnEventHandler = () => {
-      const answer_input = parseInt(gameInput.value);
-      checkAnswer(answer_input);
-      followUpAction(answer_input);
+      answeringActions();
     })
+
+    function answeringActions() {
+      const answer_input = parseInt(gameInput.value);
+        
+      // Check answer, score update and effect
+      checkAnswer(answer_input);
+
+      // Follow up action according to score result
+      followUpAction(answer_input);
+    }
 
     function checkAnswer(answer) {
       attempt += 1;
@@ -162,6 +162,9 @@ function loadMathGamePage(level, game_data) {
         })
       } else {
         score -= 1;
+        if (score < 0) {
+          score = 0;
+        }
         // Score down effect
         quizView.classList.add('incorrect');
         // Score change animation
@@ -185,14 +188,14 @@ function loadMathGamePage(level, game_data) {
           gameResultView('win');
           break;
 
-        case (score < 0):
-          // Game is over
-          clearInterval(gameTime);
-          // Log game data
-          gameLog(game_data['id'], level, 0, attempt, counter);
-          // Display Lose View
-          gameResultView('lose');
-          break;
+        // case (score < 0):
+        //   // Game is over
+        //   clearInterval(gameTime);
+        //   // Log game data
+        //   gameLog(game_data['id'], level, 0, attempt, counter);
+        //   // Display Lose View
+        //   gameResultView('lose');
+        //   break;
 
         default:
           if (answer === quiz_answer) {
