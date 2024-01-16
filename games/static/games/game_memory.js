@@ -60,8 +60,6 @@ function loadMemoryView(level, game_data) {
       }
       displayView('#activities-content-view');
       history.pushState(null, null, `/games`);
-      // handleRoute('/games');
-      // history.back();
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);
@@ -152,7 +150,9 @@ function loadMemoryView(level, game_data) {
 
         flipCard.addEventListener('click', choiceHandler = () => {
           flipCard.classList.add('is-flipped');
-          cell.classList.add('memory-active-cell');
+          if (!cell.classList.contains("memory-correct-cell")) {
+            cell.classList.add('memory-active-cell');
+          }
           checkAnswer();
         })
         container.appendChild(cell).className = "grid-item";
