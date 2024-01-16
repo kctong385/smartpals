@@ -18,6 +18,10 @@
   margin: 2vh auto;
 }
 
+.game-input {
+  text-align: center;
+}
+
 .game-score {
   font-size: 2rem;
   margin: 2vh auto;

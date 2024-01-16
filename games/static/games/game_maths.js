@@ -40,7 +40,7 @@ function loadMathGamePage(level, game_data) {
     
     // Add input
     view.append(
-      createInput('game-input', 'integer', '', 'Answer')
+      createInput('game-input', 'number', '', 'Answer')
     );
   
     // Display score
