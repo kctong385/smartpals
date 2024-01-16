@@ -141,7 +141,7 @@ function loadMathGamePage(level, game_data) {
     })
 
     function answeringActions() {
-      const answer_input = parseInt(gameInput.value);
+      const answer_input = parseFloat(gameInput.value);
         
       // Check answer, score update and effect
       checkAnswer(answer_input);
