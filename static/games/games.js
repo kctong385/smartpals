@@ -7,11 +7,21 @@ document.addEventListener("DOMContentLoaded", function() {
   // Load game content page
   populateContentView();
   
+  // const handleBeforeunload = (event) => {
+  //   console.log("In handler.");
+  //   event.preventDefault();
+  //   window.confirm = function() { return false; };
+  //   history.pushState(null, null, `/games`);
+  //   handleRoute("/games");
+  // };
+
+  // window.addEventListener('beforeunload', handleBeforeunload);
+
   // When back arrow is clicked, show previous section
-  window.onpopstate = function() {
-    console.log(window.location.pathname);
-    handleRoute(window.location.pathname);
-  }
+  // window.onpopstate = function() {
+  //   console.log(window.location.pathname);
+  //   handleRoute(window.location.pathname);
+  // }
   
   // Display content view initially
   const view = document.querySelector('#activities-content-view');
@@ -20,34 +30,34 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 // Function to handle routes
-function handleRoute(route) {
-  switch (route) {
-    case '/games/Addition':
-      loadLevelView('Addition');
-      break;
-    case '/games/Subtraction':
-      loadLevelView('Subtraction');
-      break;
-    case '/games/Multiplication':
-      loadLevelView('Multiplication');
-      break;
-    case '/games/Division':
-      loadLevelView('Division');
-      break;
-    case '/games/Spelling':
-      loadLevelView('Spelling');
-      break;
-    case '/games/Memory':
-      loadLevelView('Memory');
-      break;
-    case '/games':
-      displayView('#activities-content-view');
-      break;
+// function handleRoute(route) {
+//   switch (route) {
+//     case '/games/Addition':
+//       loadLevelView('Addition');
+//       break;
+//     case '/games/Subtraction':
+//       loadLevelView('Subtraction');
+//       break;
+//     case '/games/Multiplication':
+//       loadLevelView('Multiplication');
+//       break;
+//     case '/games/Division':
+//       loadLevelView('Division');
+//       break;
+//     case '/games/Spelling':
+//       loadLevelView('Spelling');
+//       break;
+//     case '/games/Memory':
+//       loadLevelView('Memory');
+//       break;
+//     case '/games':
+//       displayView('#activities-content-view');
+//       break;
 
-    default:
-      window.location.href = '/games';
-  }
-}
+//     default:
+//       window.location.href = '/games';
+//   }
+// }
 
 
 function populateContentView() {
@@ -108,4 +118,4 @@ function populateContentView() {
 }
 
 
-export { handleRoute }
+// export { handleRoute }
