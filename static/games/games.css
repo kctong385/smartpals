@@ -20,6 +20,11 @@
 
 .game-input {
   text-align: center;
+  font-size: 3rem;
+  width: 250px;
+  background-color: rgb(255, 255, 98);
+  border-radius: 35px;
+  border: 6px rgb(169, 128, 23) solid;
 }
 
 .game-score {
