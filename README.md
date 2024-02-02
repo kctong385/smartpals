@@ -1,6 +1,7 @@
 # SmartPals!
 ***"SmartPals!"*** is an educational web application designed for young kids to have fun while learning among friends. 
 
+Site URL: <URL http://smartpals.fun>
 Video Demo: <URL https://youtu.be/nT0T1VPTT2c>
 
 ## Distinctiveness and Complexity
