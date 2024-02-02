@@ -59,7 +59,7 @@ function loadMemoryView(level, game_data) {
         gameLog(game_data['id'], level, score, attempt, counter);
       }
       displayView('#activities-content-view');
-      history.pushState(null, null, `/games`);
+      // history.pushState(null, null, `/games`);
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);

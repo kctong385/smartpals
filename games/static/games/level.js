@@ -7,7 +7,7 @@ import { loadMemoryView } from './game_memory.js';
 
 function loadLevelView(game) {
   // Handle navigation using the History API
-  history.pushState(null, null, `/games/${game}`);
+  // history.pushState(null, null, `/games/${game}`);
 
   fetch(`info/${game}`)
   .then(response => response.json())
@@ -50,7 +50,7 @@ function loadLevelView(game) {
     const btnBack = createGameBtn('Back', function() {
       displayView('#activities-content-view');
       // Handle navigation using the History API
-      history.pushState(null, null, `/games`);
+      // history.pushState(null, null, `/games`);
     });
     const btnBackDiv = document.createElement('div');
     btnBackDiv.append(btnBack);
