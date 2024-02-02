@@ -1,9 +1,9 @@
 # SmartPals!
 ***"SmartPals!"*** is an educational web application designed for young kids to have fun while learning among friends. 
 
-Site URL: <URL http://smartpals.fun>
+Site: http://smartpals.fun
 
-Video Demo: <URL https://youtu.be/nT0T1VPTT2c>
+Video Demo: https://youtu.be/nT0T1VPTT2c
 
 ## Distinctiveness and Complexity
 ***"SmartPals!"*** is a Django web application that consists of 2 apps, ***"core"*** and ***"games"***. The "core" app mainly handles the users related stuff, while the "games" app handles the games mechanism. Each app has its own models, views, urls routes and static files. 
